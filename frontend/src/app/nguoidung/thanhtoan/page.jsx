@@ -188,6 +188,8 @@ export default function page() {
         res.data.start_date > currentDate ||
         res.data.end_date < currentDate
       ) {
+        setDiscount([]);
+        setTongTien(oldTongTien);
         toast.current.show({
           severity: "error",
           summary: "Lỗi",
@@ -196,6 +198,8 @@ export default function page() {
         return;
       }
       if (res.data.is_active === 0) {
+        setDiscount([]);
+        setTongTien(oldTongTien);
         toast.current.show({
           severity: "error",
           summary: "Lỗi",
@@ -204,6 +208,8 @@ export default function page() {
         return;
       }
       if (res.data.quantity_promotion <= 0) {
+        setDiscount([]);
+        setTongTien(oldTongTien);
         toast.current.show({
           severity: "error",
           summary: "Lỗi",
@@ -212,6 +218,8 @@ export default function page() {
         return;
       }
       if (res.data.discount_percentage <= 0) {
+        setDiscount([]);
+        setTongTien(oldTongTien);
         toast.current.show({
           severity: "error",
           summary: "Lỗi",
@@ -230,6 +238,8 @@ export default function page() {
       });
     } catch (err) {
       console.error(err);
+      setDiscount([]);
+      setTongTien(oldTongTien);
       toast.current.show({
         severity: "error",
         summary: "Lỗi",
@@ -262,7 +272,7 @@ export default function page() {
       });
       return;
     }
-    if (discount.end_date < new Date()) {
+    if (discount && discount.end_date && new Date(discount.end_date) < new Date()) {
       toast.current.show({
         severity: "warn",
         summary: "Cảnh báo",
@@ -277,7 +287,7 @@ export default function page() {
           ...order,
           user_id: user.user.id,
           payment_method_id: selectPay.id,
-          promotion_id: discount?.id || null,
+          promotion_id: (discount && discount.discount_percentage > 0) ? discount.id : null,
           address: `${order.address}, ${selectedWard.name}, ${selectedDistrict.name}, ${selectedCity.name}`,
           note: order.note,
           total: tongtien,

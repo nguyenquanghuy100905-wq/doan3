@@ -49,25 +49,26 @@ exports.createOrders = async (req, res) => {
 				finalAddress = userAddress;
 			}
 		}
-		const ordersId = await Orders.createOrders(user_id, payment_method_id, promotion_id, status, note, finalAddress, total);
+		let finalPromotionId = promotion_id;
 		let pricePromotion = { discount_percentage: 0 };
-		if (promotion_id) {
-			const promo = await Promotions.getPromotionsById(promotion_id);
+		if (finalPromotionId) {
+			const promo = await Promotions.getPromotionsById(finalPromotionId);
 			if (promo) {
 				pricePromotion = promo;
+			} else {
+				finalPromotionId = null;
 			}
 		}
+		const ordersId = await Orders.createOrders(user_id, payment_method_id, finalPromotionId, status, note, finalAddress, total);
 		const dataCart = await Cart.getAllCart(user_id);
 		if (dataCart.length > 0) {
 			for (const item of dataCart) {
 				let totalPrice = item.total - ((item.total * pricePromotion.discount_percentage) / 100);
 				await Orderdetails.createOrderdetails(ordersId, item.product_id, item.quantity, item.subtotal);
 				await Orders.updateTotalOrder(ordersId, totalPrice);
-				const dataProduct = await Products.getProductsById(item.product_id);
-				for (let p of dataProduct) {
-					let quantity = p.quantity - item.quantity;
-					await Products.updateQuantity(item.product_id, quantity);
-				}
+				const currentQuantity = await Products.getQuantityProductsById(item.product_id);
+				let quantity = currentQuantity - item.quantity;
+				await Products.updateQuantity(item.product_id, quantity);
 				await Cart.deleteCart(user_id, item.product_id);
 				if (promotion_id && pricePromotion.quantity_promotion !== undefined && pricePromotion.quantity_promotion !== null) {
 					const newQuantity = pricePromotion.quantity_promotion - 1;
