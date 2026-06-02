@@ -63,7 +63,12 @@ exports.createOrders = async (req, res) => {
 		const dataCart = await Cart.getAllCart(user_id);
 		if (dataCart.length > 0) {
 			for (const item of dataCart) {
-				let totalPrice = item.total - ((item.total * pricePromotion.discount_percentage) / 100);
+				let discountPercentage = pricePromotion ? (pricePromotion.discount_percentage || 0) : 0;
+				let itemTotal = Number(item.total) || Number(total) || 0;
+				let totalPrice = itemTotal - ((itemTotal * discountPercentage) / 100);
+				if (isNaN(totalPrice)) {
+					totalPrice = Number(total) || 0;
+				}
 				await Orderdetails.createOrderdetails(ordersId, item.product_id, item.quantity, item.subtotal);
 				await Orders.updateTotalOrder(ordersId, totalPrice);
 				const currentQuantity = await Products.getQuantityProductsById(item.product_id);
@@ -78,6 +83,7 @@ exports.createOrders = async (req, res) => {
 		}
 		res.status(201).send({ message: 'Tạo đơn hàng thành công', ordersId });
 	} catch (error) {
+		console.error("Lỗi tạo đơn hàng:", error);
 		res.status(500).send({ message: 'Lỗi server', error: error.message });
 	}
 };
