@@ -9,6 +9,10 @@ class ThongKe{
         const [data] = await db.query('call ThongKeDonHangTheoThang()');
         return data[0];
     }
+    static async ThongKeSanPhamBanChay(limit = 10){
+        const [data] = await db.query('call ThongKeSanPhamBanChay(?)', [limit]);
+        return data[0];
+    }
 }
 
 module.exports = ThongKe;

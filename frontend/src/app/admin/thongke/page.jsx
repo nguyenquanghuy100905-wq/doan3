@@ -199,6 +199,7 @@ export default function page() {
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     tableStyle={{ minWidth: '100%' }}
                     className="p-datatable-responsive p-shadow-2 rounded-lg"
+                    emptyMessage="Chưa có đánh giá nào"
                 >
                     <Column
                         header="STT"

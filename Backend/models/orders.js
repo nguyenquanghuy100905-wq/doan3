@@ -2,9 +2,13 @@ const db = require('../config/db');
 
 class Orders {
 	static async getAllOrders() {
-		const [result] = await db.query('call getAllOrder()');
-		result[0].forEach(img => {
-			img.images = img.images ? img.images.split(",") : [];
+		const [result] = await db.query('call getAllOrders()');
+		result[0].forEach(item => {
+			if (item.images) {
+				item.images = item.images.split(",");
+			} else {
+				item.images = [];
+			}
 		});
 		return result[0];
 	}

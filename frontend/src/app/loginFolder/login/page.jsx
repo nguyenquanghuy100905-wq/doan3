@@ -24,14 +24,10 @@ export default function Login() {
                     if (res.data.user.role_user == 3 || res.data.user.role_user == 2) {
                         localStorage.setItem("data", JSON.stringify(res.data));
                         router.push("/admin");
-                        <Messages ref={msgs} />
                     }
                     else if (res.data.user.role_user == 1) {
                         localStorage.setItem("data", JSON.stringify(res.data));
                         router.push("/nguoidung");
-                    }
-                    else {
-                        <Messages ref={msgs} />
                     }
                 }
             }
