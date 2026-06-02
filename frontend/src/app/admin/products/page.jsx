@@ -99,7 +99,11 @@ export default function Page() {
         const response = await axios.get(
           "http://localhost:3000/products/getAllProducts"
         );
-        setDataProducts(response.data);
+        const mapped = (response.data || []).map((product) => ({
+          ...product,
+          image: product.image || product.images || []
+        }));
+        setDataProducts(mapped);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -110,13 +114,16 @@ export default function Page() {
     fetchProducts();
   }, []);
 
-  const imageBodyTemplate = (rowData) => (
-    <img
-      src={`http://localhost:3000${rowData.image[0]}`}
-      alt="Product"
-      className="w-20 h-20 object-cover border rounded-md shadow-md"
-    />
-  );
+  const imageBodyTemplate = (rowData) => {
+    const imgPath = (rowData.image && rowData.image.length > 0) ? rowData.image[0] : null;
+    return (
+      <img
+        src={imgPath ? `http://localhost:3000${imgPath}` : "https://placehold.co/100x100?text=No+Image"}
+        alt="Product"
+        className="w-20 h-20 object-cover border rounded-md shadow-md"
+      />
+    );
+  };
   const btnViewDetails = (rowData) => {
     setTitle("Thông Tin Sản Phẩm");
     setProduct(rowData);
