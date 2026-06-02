@@ -24,22 +24,8 @@ export default function Sidebar() {
                 { label: "Types", icon: "pi pi-th-large", command: () => router.push("/admin/type") },
             ],
         },
-        {
-            label: "Information",
-            icon: "pi pi-info-circle",
-            items: [
-                { label: "Contacts", icon: "pi pi-align-left", command: () => router.push("/admin/contacts") },
-                { label: "Content Types", icon: "pi pi-align-left", command: () => router.push("/admin/contents") },
-                { label: "News", icon: "pi pi-book", command: () => router.push("/admin/news") },
-                { label: "Feedbacks", icon: "pi pi-comments", command: () => router.push("/admin/feedbacks") },
-                { label: "Banners", icon: "pi pi-image", command: () => router.push("/admin/banners") },
-                { label: "Images", icon: "pi pi-image", command: () => router.push("/admin/images") }
-            ],
-        },
         { label: "Orders", icon: "pi pi-shopping-cart", command: () => router.push("/admin/order") },
-        { label: "Thống Kê", icon: "pi pi-chart-pie", command: () => router.push("/admin/thongke") },
         { label: "Promotions", icon: "pi pi-gift", command: () => router.push("/admin/promotions") },
-        { label: "Settings", icon: "pi pi-cog", command: () => router.push("/admin/settings") },
     ], [router]);
 
     function handleLogout() {
