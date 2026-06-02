@@ -53,6 +53,7 @@ async function createTables() {
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 name VARCHAR(200),
                 description TEXT,
+                image TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )`,

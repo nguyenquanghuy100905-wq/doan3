@@ -1,68 +1,61 @@
 // models/imageproducts.js
 const db = require("../config/db");
 const fs = require("fs");
+const path = require("path");
 
 class Imageproducts {
-  static async getAllImageproducts() {
-    const [result] = await db.query("CALL getAllImageproducts");
-    return result[0];
+  static getAllImageproducts() {
+    return db.query("CALL getAllImageproducts").then(([result]) => result[0]);
   }
 
-  static async getImageproductsById(id) {
-    const [result] = await db.execute("CALL getImageProductsById(?)", [id]);
-    return result[0];
+  static getImageproductsById(id) {
+    return db.execute("CALL getImageProductsById(?)", [id]).then(([result]) => result[0]);
   }
 
-  static async getImageById(id) {
-    const [result] = await db.execute(
+  static getImageById(id) {
+    return db.execute(
       "SELECT image_path FROM imageproducts WHERE id = ?",
       [id]
-    );
-    return result[0]?.image_path;
+    ).then(([result]) => result[0]?.image_path);
   }
 
-  static async getIdByNameProduct(name, color) {
-    const [result] = await db.execute(
+  static getIdByNameProduct(name, color) {
+    return db.execute(
       "SELECT id FROM products WHERE name = ? AND color = ?",
       [name, color]
-    );
-    return result[0]?.id; // Sử dụng optional chaining
+    ).then(([result]) => result[0]?.id); // Sử dụng optional chaining
   }
 
-  static async createImageproducts(product_id, image_path) {
-    const [result] = await db.execute(
+  static createImageproducts(product_id, image_path) {
+    return db.execute(
       "INSERT INTO imageproducts (product_id, image_path) VALUES (?, ?)",
       [product_id, image_path]
-    );
-    return result.insertId;
+    ).then(([result]) => result.insertId);
   }
 
-  static async updateImageproducts(id, product_id, image_path) {
-    const [result] = await db.execute(
+  static updateImageproducts(id, product_id, image_path) {
+    return db.execute(
       "UPDATE imageproducts SET product_id = ?, image_path = ? WHERE id = ?",
       [product_id, image_path, id]
-    );
-    return result.affectedRows > 0;
+    ).then(([result]) => result.affectedRows > 0);
   }
 
-  static async deleteImageproducts(id) {
-    const [result] = await db.execute(
+  static deleteImageproducts(id) {
+    return db.execute(
       "DELETE FROM imageproducts WHERE product_id = ?",
       [id]
-    );
-    return result.affectedRows > 0;
+    ).then(([result]) => result.affectedRows > 0);
   }
 
-  static async deleteOneImageproduct(id) {
-    const [result] = await db.execute(
+  static deleteOneImageproduct(id) {
+    return db.execute(
       "DELETE FROM imageproducts WHERE id = ?",
       [id]
-    );
-    return result.affectedRows > 0;
+    ).then(([result]) => result.affectedRows > 0);
   }
 
   static deleteFile(filePath) {
-    const file = "C:/Users/haian/OneDrive/Desktop/DoAn3_HaiAnhMobile/Backend" + filePath;
+    const file = path.join(__dirname, "..", filePath);
     if (fs.existsSync(file)) {
       fs.unlinkSync(file);
     }
