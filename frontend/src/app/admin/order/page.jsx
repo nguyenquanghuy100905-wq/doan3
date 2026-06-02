@@ -85,7 +85,7 @@ export default function OrderPage() {
     }, []);
 
     const filteredOrders = orders.filter((item) => {
-        const matchesSearch = item.nameProduct.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = (item.nameProduct || "").toLowerCase().includes((searchQuery || "").toLowerCase());
         const matchesStatus = !selectedStatus || item.status === selectedStatus;
         return matchesSearch && matchesStatus;
     });
