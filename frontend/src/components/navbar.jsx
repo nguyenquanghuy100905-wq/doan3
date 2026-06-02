@@ -328,7 +328,7 @@ export default function Navbar() {
                 {!hideInfo && (
                   <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-300 rounded-md shadow-lg z-50">
                     <Link
-                      href="/nguoidung/trangchu"
+                      href="/nguoidung/taikhoan"
                       className="block px-4 py-2 text-black hover:bg-orange-600 hover:text-white border-b"
                     >
                       Quản Lý Tài Khoản
