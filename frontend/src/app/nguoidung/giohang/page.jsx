@@ -156,10 +156,9 @@ export default function Page() {
   const [tongtien, setTongTien] = useState(0);
   const [oldTongTien, setOldTongTien] = useState(0);
   const total = () => {
-    giohang.forEach((item) => {
-      setTongTien(item.total);
-      setOldTongTien(item.total);
-    });
+    const sum = giohang.reduce((acc, item) => acc + (Number(item.subtotal) || 0), 0);
+    setTongTien(sum);
+    setOldTongTien(sum);
   };
   useEffect(() => {
     total();
@@ -325,12 +324,12 @@ export default function Page() {
 
           <div className="col-span-1 border-1 border-gray-300 bg-white p-6 shadow-md rounded-2xl flex flex-col justify-between">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Tóm tắt đơn hàng</h3>
+              <h3 className="text-lg font-semibold mb-4 text-black">Tóm tắt đơn hàng</h3>
               <ul className="mb-4 space-y-2">
                 {giohang.map((item, index) => (
                   <li
                     key={index}
-                    className="flex justify-between space-x-5 text-sm"
+                    className="flex justify-between space-x-5 text-sm text-black"
                   >
                     <span>
                       [ {item.name} x {item.color} x {item.quantity} ]
@@ -342,7 +341,7 @@ export default function Page() {
                 ))}
               </ul>
               <hr className="my-4" />
-              <div className="flex justify-between text-lg font-bold">
+              <div className="flex justify-between text-lg font-bold text-black">
                 <span>Tổng cộng:</span>
                 <span className="text-green-600">
                   {Number(tongtien).toLocaleString("vi-VN") + " đ"}

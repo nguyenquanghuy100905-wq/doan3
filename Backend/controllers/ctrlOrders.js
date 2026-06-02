@@ -69,8 +69,10 @@ exports.createOrders = async (req, res) => {
 					await Products.updateQuantity(item.product_id, quantity);
 				}
 				await Cart.deleteCart(user_id, item.product_id);
-				const newQuantity = pricePromotion.quantity_promotion - 1;
-				await Promotions.updateQuantityPromotion(promotion_id, newQuantity)
+				if (promotion_id && pricePromotion.quantity_promotion !== undefined && pricePromotion.quantity_promotion !== null) {
+					const newQuantity = pricePromotion.quantity_promotion - 1;
+					await Promotions.updateQuantityPromotion(promotion_id, newQuantity);
+				}
 			}
 		}
 		res.status(201).send({ message: 'Tạo đơn hàng thành công', ordersId });

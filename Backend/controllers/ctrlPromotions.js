@@ -25,7 +25,7 @@ exports.getPromotionsById = async (req, res) =>{
 exports.createPromotions = async (req, res) => {
 	try {
 		const {id, title, description, discount_percentage, start_date, end_date, quantity_promotion, is_active } = req.body;
-		if (!id,!title || !description || !discount_percentage || !start_date || !end_date || !quantity_promotion || !is_active) {
+		if (!id || !title || !description || !discount_percentage || !start_date || !end_date || !quantity_promotion || is_active === undefined) {
 			return res.status(400).json({ message: 'Vui lòng cung cấp đầy đủ thông tin bắt buộc' });
 		}
 		await Promotions.createPromotions(id, title, description, discount_percentage, start_date, end_date, quantity_promotion, is_active );
@@ -39,7 +39,7 @@ exports.updatePromotions = async (req, res) => {
 	try {
 		const { id } = req.query;
 		const { title, description, discount_percentage, start_date, end_date, quantity_promotion, is_active } = req.body;
-		if (!title ||!description ||!discount_percentage ||!start_date ||!end_date ||!quantity_promotion ||!is_active) {
+		if (!title || !description || !discount_percentage || !start_date || !end_date || !quantity_promotion || is_active === undefined) {
 			return res.status(400).send({ message: 'Vui lòng cung cấp đầy đủ thông tin bắt buộc' });
 		}
 		const updatedPromotions = await Promotions.updatePromotions(id, title, description, discount_percentage, start_date, end_date, quantity_promotion, is_active );

@@ -304,7 +304,7 @@ export default function Navbar() {
                   src={
                     data.user.image !== null
                       ? `http://localhost:3000${data.user.image}`
-                      : imgDefault
+                      : imgDefault.src
                   }
                   className="w-12 h-12 rounded-full border-2 border-black object-cover"
                   alt="User Avatar"
@@ -551,7 +551,7 @@ export default function Navbar() {
                         src={
                           pr.image[0]
                             ? `http://localhost:3000${pr.image[0]}`
-                            : imgDefault
+                            : imgDefault.src
                         }
                         alt={pr.name}
                         className="w-20 h-20 rounded-full mr-3"

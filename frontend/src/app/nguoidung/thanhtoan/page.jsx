@@ -155,10 +155,9 @@ export default function page() {
   const [tongtien, setTongTien] = useState(0);
   const [oldTongTien, setOldTongTien] = useState(0);
   const total = () => {
-    giohang.forEach((item) => {
-      setTongTien(item.total);
-      setOldTongTien(item.total);
-    });
+    const sum = giohang.reduce((acc, item) => acc + (Number(item.subtotal) || 0), 0);
+    setTongTien(sum);
+    setOldTongTien(sum);
   };
   useEffect(() => {
     total();
@@ -312,7 +311,7 @@ export default function page() {
       <div className="container mx-auto">
         <div className="grid my-4 grid-cols-1 space-x-2 md:grid-cols-5">
           <div className="col-span-3 rounded-lg h-full border-1 border-gray-200">
-            <h2 className="text-[30px] font-[600] m-2">Thông Tin Thanh Toán</h2>
+            <h2 className="text-[30px] font-[600] m-2 text-black">Thông Tin Thanh Toán</h2>
             <div className="w-full mt-5 p-2">
               <FloatLabel>
                 <InputText
@@ -322,7 +321,7 @@ export default function page() {
                   className="w-full"
                   onChange={(e) => setUser(e.target.value)}
                 />
-                <label htmlFor="name">Họ Và Tên</label>
+                <label htmlFor="name" className="text-black">Họ Và Tên</label>
               </FloatLabel>
             </div>
             <div className="grid grid-cols-1 mt-4 p-2 space-x-9 md:grid-cols-2">
@@ -335,7 +334,7 @@ export default function page() {
                     className="w-full"
                     onChange={(e) => setUser(e.target.value)}
                   />
-                  <label htmlFor="Phone">Phone</label>
+                  <label htmlFor="Phone" className="text-black">Phone</label>
                 </FloatLabel>
               </div>
               <div className="col-span-1">
@@ -347,13 +346,13 @@ export default function page() {
                     className="w-full"
                     onChange={(e) => setUser(e.target.value)}
                   />
-                  <label htmlFor="Email">Email</label>
+                  <label htmlFor="Email" className="text-black">Email</label>
                 </FloatLabel>
               </div>
             </div>
             <div className="grid grid-cols-1 p-2 space-x-9 md:grid-cols-2">
               <div className="col-span-1">
-                <label htmlFor="cities" className="block mb-2 font-medium">
+                <label htmlFor="cities" className="block mb-2 font-medium text-black">
                   Tỉnh/Thành phố
                 </label>
                 <Dropdown
@@ -366,7 +365,7 @@ export default function page() {
                 />
               </div>
               <div className="col-span-1">
-                <label htmlFor="cities" className="block mb-2 font-medium">
+                <label htmlFor="cities" className="block mb-2 font-medium text-black">
                   Quận/Huyện
                 </label>
                 <Dropdown
@@ -382,7 +381,7 @@ export default function page() {
             </div>
             <div className="grid grid-cols-1 p-2 space-x-9 md:grid-cols-2">
               <div className="col-span-1">
-                <label htmlFor="cities" className="block mb-2 font-medium">
+                <label htmlFor="cities" className="block mb-2 font-medium text-black">
                   Phường/Xã
                 </label>
                 <Dropdown
@@ -396,7 +395,7 @@ export default function page() {
                 />
               </div>
               <div className="col-span-1">
-                <label htmlFor="ThanhToan" className="block mb-2 font-medium">
+                <label htmlFor="ThanhToan" className="block mb-2 font-medium text-black">
                   Phương Thức Thanh Toán
                 </label>
                 <Dropdown
@@ -422,8 +421,8 @@ export default function page() {
               />
             </div>
             <div className="mt-5">
-              <h2 className="text-[30px] font-[600] m-2">Thông Tin Bổ Sung</h2>
-              <p className="m-2 text-gray-600 italic">
+              <h2 className="text-[30px] font-[600] m-2 text-black">Thông Tin Bổ Sung</h2>
+              <p className="m-2 text-black italic">
                 Ghi chú đơn hàng (tùy chọn){" "}
               </p>
               <div className="m-2">
@@ -460,14 +459,14 @@ export default function page() {
                         className="w-20 h-20 rounded-lg border border-gray-200 object-cover"
                       />
                       <div className="text-sm">
-                        <p className="font-semibold text-gray-800">
+                        <p className="font-semibold text-black">
                           {item.name}
                         </p>
-                        <p className="text-gray-500">
+                        <p className="text-black">
                           Số lượng:{" "}
                           <span className="font-medium">{item.quantity}</span>
                         </p>
-                        <p className="text-gray-500">
+                        <p className="text-black">
                           Màu: <span className="font-medium">{item.color}</span>
                         </p>
                       </div>
@@ -479,7 +478,7 @@ export default function page() {
                 ))
               )}
             </div>
-            <h2 className="text-[20px] font-bold text-gray-600 m-1 my-4">
+            <h2 className="text-[20px] font-bold text-black m-1 my-4">
               Mã Khuyến Mại
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 w-full space-x-2 my-5">
@@ -493,7 +492,7 @@ export default function page() {
                       setDiscount({ ...discount, id: e.target.value })
                     }
                   />
-                  <label htmlFor="KhuyenMai">Nhập mã khuyến mại</label>
+                  <label htmlFor="KhuyenMai" className="text-black">Nhập mã khuyến mại</label>
                 </FloatLabel>
               </div>
               <div className="col-span-1">
@@ -508,7 +507,7 @@ export default function page() {
               </div>
             </div>
             <div className="flex w-full space-x-2 my-5">
-              <h2 className="text-[20px] font-bold text-gray-600 m-1">
+              <h2 className="text-[20px] font-bold text-black m-1">
                 Tổng Tiền:{" "}
               </h2>
               <h2 className="text-[20px] font-bold text-orange-600 m-1">
