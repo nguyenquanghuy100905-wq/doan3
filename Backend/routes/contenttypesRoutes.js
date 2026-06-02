@@ -1,0 +1,11 @@
+var express = require('express');
+var router = express.Router();
+const uploads = require('../middleware/uploads');
+const contenttypes = require('../controllers/ctrlContenttypes');
+router.get('/getAllContenttypes', contenttypes.getAllContenttypes);
+router.get('/getContenttypesById', contenttypes.getContenttypesById);
+router.get('/getContentByIdType', contenttypes.getContentByIdType);
+router.post('/createContenttypes', uploads.single('file'), contenttypes.createContenttypes);
+router.put('/updateContenttypes', uploads.single('file'), contenttypes.updateContenttypes);
+router.delete('/deleteContenttypes', contenttypes.deleteContenttypes);
+module.exports = router;

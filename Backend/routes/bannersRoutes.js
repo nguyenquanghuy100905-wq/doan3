@@ -1,0 +1,10 @@
+var express = require('express');
+var uploads = require('../middleware/uploads');
+var router = express.Router();
+const banners = require('../controllers/ctrlBanners');
+router.get('/getAllBanners', banners.getAllBanners);
+router.get('/getBannersById', banners.getBannersById);
+router.post('/createBanners',uploads.single("file"), banners.createBanners);
+router.put('/updateBanners',uploads.single("file"), banners.updateBanners);
+router.delete('/deleteBanners', banners.deleteBanners);
+module.exports = router;

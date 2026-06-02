@@ -1,0 +1,8 @@
+.background {
+  background-image: url("../ImageJeepBicycle/iphone-16-pro-model-unselect-gallery-1-202409_FMT_WHH.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+}

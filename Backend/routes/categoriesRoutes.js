@@ -1,0 +1,11 @@
+var express = require('express');
+var router = express.Router();
+const uploads = require('../middleware/uploads');
+const categories = require('../controllers/ctrlCategories');
+router.get('/getAllCategories', categories.getAllCategories);
+router.get('/getCategoriesAndQuantity', categories.getCategoriesAndQuantity);
+router.get('/getCategoriesById', categories.getCategoriesById);
+router.post('/createCategories',uploads.single('file'), categories.createCategories);
+router.put('/updateCategories',uploads.single('file'), categories.updateCategories);
+router.delete('/deleteCategories', categories.deleteCategories);
+module.exports = router;

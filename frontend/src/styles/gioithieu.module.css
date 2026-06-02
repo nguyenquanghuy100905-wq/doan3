@@ -1,0 +1,97 @@
+.content {
+  color: aliceblue;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: normal;
+  z-index: 2;
+}
+.title {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 38px;
+  line-height: 50px;
+  color: #fff;
+  z-index: 2;
+}
+.background {
+  position: relative;
+  background-image: url("../ImageJeepBicycle/iphone-16-pro-model-unselect-gallery-1-202409_FMT_WHH.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1;
+}
+
+.background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: -1;
+}
+.titleContent {
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 60px;
+  line-height: 78px;
+  margin-bottom: 60px;
+  color: #1F2937; /* Đen xám đậm - rõ ràng */
+}
+.contentTitle {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 40px;
+  color: #374151; /* Xám đậm - dễ đọc */
+}
+.footerbackground {
+  position: relative;
+  background-image: url("https://bizweb.dktcdn.net/100/480/632/themes/900313/assets/slider_1.jpg?1746173377751");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+
+.footerbackground::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: -1;
+}
+.footertitle {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: rgb(237, 28, 36);
+  font-size: 40px;
+  line-height: 52px;
+  margin-bottom: 20px;
+}
+.footercontent {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 20px;
+}
+.footerbutton {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  line-height: 25px;
+  background-color: rgb(223, 60, 10);
+}

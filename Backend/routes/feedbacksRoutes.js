@@ -1,0 +1,13 @@
+var express = require('express');
+var router = express.Router();
+const img = require('../middleware/uploads');
+const feedbacks = require('../controllers/ctrlFeedbacks');
+router.get('/getAllFeedbacks', feedbacks.getAllFeedbacks);
+router.get('/getFeedbacksByIdUser', feedbacks.getFeedbacksByIdUser);
+router.get('/getFeedbacksById', feedbacks.getFeedbacksById);
+router.get('/getFeedbacksByIdProduct', feedbacks.getFeedbacksByIdProduct);
+router.get('/getCountFeedbackByIdProduct', feedbacks.getCountFeedbackByIdProduct);
+router.post('/createFeedbacks',img.single('file'), feedbacks.createFeedbacks);
+router.put('/updateFeedbacks',img.single('file'), feedbacks.updateFeedbacks);
+router.delete('/deleteFeedbacks', feedbacks.deleteFeedbacks);
+module.exports = router;

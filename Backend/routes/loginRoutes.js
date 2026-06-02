@@ -1,0 +1,12 @@
+var express = require('express');
+var router = express.Router();
+const users = require('../controllers/ctrlLogin');
+router.post('/login', users.login);
+router.post('/register',users.register);
+router.get('/getUserByEmail', users.getUserByEmail);
+router.get('/getUserByPhone',users.getUserByPhone);
+router.get('/getUserByUsername', users.getUserByUsername);
+router.post('/forgotPasswordByEmail',users.forgotPasswordByEmail);
+router.post('/verifyOTP',users.verifyOTP);
+router.put('/resetPassword',users.resetPassword);
+module.exports = router;

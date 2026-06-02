@@ -1,0 +1,31 @@
+.text{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Roboto, sans-serif;
+    color: black;
+    line-height: 16px;
+}
+.textActive{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Roboto, sans-serif;
+    color: rgb(223, 69, 62);
+    line-height: 16px;
+}
+.text:hover{
+    color: rgb(223, 69, 62);
+}
+.itemproducts{
+    font-size: 18px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    line-height: 16px;
+}
+.itemproducts:hover{
+    color: rgb(223, 69, 62);
+    background-color: rgba(238, 238, 238, 0.486);
+}
+
+.backgroundSearch{
+    background-color: rgba(51, 50, 50, 0.705);
+}

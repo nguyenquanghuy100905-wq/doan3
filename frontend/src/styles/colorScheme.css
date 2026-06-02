@@ -1,0 +1,57 @@
+/* 
+  Color Scheme cho QuangHuyMobile
+  Thiết kế theo nguyên tắc Material Design & Apple Human Interface Guidelines
+*/
+
+:root {
+  /* Primary Colors - Màu chủ đạo */
+  --primary-orange: #FF6B35;      /* Cam nổi bật cho CTA */
+  --primary-orange-dark: #E85A2A; /* Cam đậm cho hover */
+  --primary-orange-light: #FF8C5F; /* Cam nhạt cho background */
+  
+  /* Secondary Colors - Màu phụ */
+  --secondary-blue: #2563EB;      /* Xanh dương tin cậy */
+  --secondary-blue-dark: #1E40AF;
+  --secondary-blue-light: #3B82F6;
+  
+  /* Text Colors - Màu chữ */
+  --text-primary: #1F2937;        /* Đen xám đậm - Tiêu đề chính */
+  --text-secondary: #4B5563;      /* Xám đậm - Nội dung */
+  --text-tertiary: #6B7280;       /* Xám vừa - Mô tả phụ */
+  --text-light: #9CA3AF;          /* Xám nhạt - Placeholder */
+  --text-white: #FFFFFF;          /* Trắng - Text trên nền tối */
+  
+  /* Background Colors - Màu nền */
+  --bg-primary: #FFFFFF;          /* Trắng - Nền chính */
+  --bg-secondary: #F9FAFB;        /* Xám rất nhạt - Nền phụ */
+  --bg-tertiary: #F3F4F6;         /* Xám nhạt - Card background */
+  --bg-dark: #111827;             /* Đen - Footer/Header */
+  
+  /* Status Colors - Màu trạng thái */
+  --success: #10B981;             /* Xanh lá - Thành công */
+  --warning: #F59E0B;             /* Vàng - Cảnh báo */
+  --error: #EF4444;               /* Đỏ - Lỗi */
+  --info: #3B82F6;                /* Xanh - Thông tin */
+  
+  /* Border Colors - Màu viền */
+  --border-light: #E5E7EB;        /* Viền nhạt */
+  --border-medium: #D1D5DB;       /* Viền vừa */
+  --border-dark: #9CA3AF;         /* Viền đậm */
+  
+  /* Price Colors - Màu giá */
+  --price-new: #EF4444;           /* Đỏ - Giá mới */
+  --price-old: #9CA3AF;           /* Xám - Giá cũ */
+  --discount: #10B981;            /* Xanh - Giảm giá */
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #F9FAFB;
+    --text-secondary: #E5E7EB;
+    --text-tertiary: #D1D5DB;
+    --bg-primary: #111827;
+    --bg-secondary: #1F2937;
+    --bg-tertiary: #374151;
+  }
+}

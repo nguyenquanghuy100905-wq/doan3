@@ -1,0 +1,38 @@
+.background {
+    position: relative;
+    background-image: url('../ImageJeepBicycle/GioiThieu/GioiThieu05.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 1;
+}
+.content{
+    color: aliceblue;
+    font-weight: 400;
+    font-size: 18px;
+    font-style: normal;
+    z-index: 2;
+}
+.title{
+    font-weight: 700;
+    font-style: normal;
+    font-size: 38px;
+    line-height: 50px;
+    color: #fff;
+    z-index: 2;
+}
+.heading{
+    font-weight: 700;
+    font-style: normal;
+    font-size: 22px;
+    line-height: 32px;
+    color: rgb(10, 10, 10);
+    padding: 10px;
+}
+.text{
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 40px;
+    color: rgb(10, 10, 10);
+}
