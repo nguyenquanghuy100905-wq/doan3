@@ -1,9 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { InputText } from "primereact/inputtext";
-import { FloatLabel } from "primereact/floatlabel";
-import { Dropdown } from "primereact/dropdown";
-import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { Camera, User, Phone, Mail, MapPin, Calendar, Heart, Shield, Lock } from "lucide-react";
@@ -34,12 +30,6 @@ export default function AccountPage() {
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
     const toast = useRef(null);
-
-    const sexOptions = [
-        { label: "Nam", value: "Nam" },
-        { label: "Nữ", value: "Nữ" },
-        { label: "Khác", value: "Khác" }
-    ];
 
     // Load auth and user info
     useEffect(() => {
@@ -284,10 +274,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Tên đăng nhập</label>
                                     <div className="relative">
                                         <Shield className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
+                                            type="text"
                                             value={user.username} 
                                             disabled 
-                                            className="w-full pl-10 bg-gray-50 border border-gray-200 cursor-not-allowed"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-500 cursor-not-allowed focus:outline-none"
                                         />
                                     </div>
                                 </div>
@@ -296,10 +287,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Họ và tên *</label>
                                     <div className="relative">
                                         <User className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
+                                            type="text"
                                             value={user.name} 
                                             onChange={(e) => setUser({ ...user, name: e.target.value })}
-                                            className="w-full pl-10 border border-gray-300 focus:border-orange-500"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                             placeholder="Nhập họ và tên..."
                                         />
                                     </div>
@@ -309,10 +301,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Số điện thoại *</label>
                                     <div className="relative">
                                         <Phone className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
+                                            type="text"
                                             value={user.phone} 
                                             onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                                            className="w-full pl-10 border border-gray-300 focus:border-orange-500"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                             placeholder="Nhập số điện thoại..."
                                         />
                                     </div>
@@ -322,10 +315,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Email *</label>
                                     <div className="relative">
                                         <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
+                                            type="email"
                                             value={user.email} 
                                             onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                            className="w-full pl-10 border border-gray-300 focus:border-orange-500"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                             placeholder="Nhập địa chỉ email..."
                                         />
                                     </div>
@@ -339,7 +333,7 @@ export default function AccountPage() {
                                             type="date"
                                             value={user.birthday || ""}
                                             onChange={(e) => setUser({ ...user, birthday: e.target.value })}
-                                            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                         />
                                     </div>
                                 </div>
@@ -347,14 +341,22 @@ export default function AccountPage() {
                                 <div className="flex flex-col space-y-1">
                                     <label className="text-sm font-medium text-gray-600">Giới tính</label>
                                     <div className="relative">
-                                        <Heart className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 z-10" />
-                                        <Dropdown 
-                                            value={user.sex} 
-                                            options={sexOptions} 
-                                            onChange={(e) => setUser({ ...user, sex: e.value })}
-                                            placeholder="Chọn giới tính"
-                                            className="w-full pl-8 border border-gray-300 focus:border-orange-500"
-                                        />
+                                        <Heart className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                                        <select
+                                            value={user.sex || ""}
+                                            onChange={(e) => setUser({ ...user, sex: e.target.value })}
+                                            className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700 appearance-none cursor-pointer"
+                                        >
+                                            <option value="" disabled>Chọn giới tính</option>
+                                            <option value="Nam">Nam</option>
+                                            <option value="Nữ">Nữ</option>
+                                            <option value="Khác">Khác</option>
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -367,11 +369,11 @@ export default function AccountPage() {
                             </h3>
                             <div className="flex flex-col space-y-1">
                                 <label className="text-sm font-medium text-gray-600">Địa chỉ cụ thể *</label>
-                                <InputTextarea 
+                                <textarea 
                                     value={user.address} 
                                     onChange={(e) => setUser({ ...user, address: e.target.value })}
                                     rows={3} 
-                                    className="w-full border border-gray-300 focus:border-orange-500 p-3"
+                                    className="w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none p-3 transition-all duration-200 text-gray-700"
                                     placeholder="Nhập địa chỉ giao hàng chi tiết..."
                                 />
                             </div>
@@ -387,11 +389,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Mật khẩu mới (để trống nếu không muốn đổi)</label>
                                     <div className="relative">
                                         <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
                                             type="password"
                                             value={password} 
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full pl-10 border border-gray-300 focus:border-orange-500"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                             placeholder="Nhập mật khẩu mới..."
                                         />
                                     </div>
@@ -401,11 +403,11 @@ export default function AccountPage() {
                                     <label className="text-sm font-medium text-gray-600">Xác nhận mật khẩu mới</label>
                                     <div className="relative">
                                         <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                        <InputText 
+                                        <input 
                                             type="password"
                                             value={confirmPassword} 
                                             onChange={(e) => setConfirmPassword(e.target.value)}
-                                            className="w-full pl-10 border border-gray-300 focus:border-orange-500"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
                                             placeholder="Nhập lại mật khẩu mới..."
                                         />
                                     </div>
