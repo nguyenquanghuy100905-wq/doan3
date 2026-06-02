@@ -329,19 +329,19 @@ export default function Navbar() {
                   <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-300 rounded-md shadow-lg z-50">
                     <Link
                       href="/nguoidung/trangchu"
-                      className="block px-4 py-2 hover:bg-orange-600 hover:text-white border-b"
+                      className="block px-4 py-2 text-black hover:bg-orange-600 hover:text-white border-b"
                     >
                       Quản Lý Tài Khoản
                     </Link>
                     <Link
                       href="/nguoidung/donhang"
-                      className="block px-4 py-2 hover:bg-orange-600 hover:text-white border-b"
+                      className="block px-4 py-2 text-black hover:bg-orange-600 hover:text-white border-b"
                     >
                       Quản Lý Đơn Hàng
                     </Link>
                     <button
                       onClick={dangxuat}
-                      className="w-full text-left px-4 py-2 hover:bg-orange-600 hover:text-white"
+                      className="w-full text-left px-4 py-2 text-black hover:bg-orange-600 hover:text-white"
                     >
                       Đăng Xuất
                     </button>

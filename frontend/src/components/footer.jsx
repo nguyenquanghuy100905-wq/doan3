@@ -153,7 +153,7 @@ export default function Footer() {
             </a>
           </div>
           <div className="mt-5">
-            <Image src={congchung} width={300} alt="Logo" />
+            <Image src={congchung} width={300} alt="Logo" style={{ height: "auto" }} />
           </div>
         </div>
       </div>

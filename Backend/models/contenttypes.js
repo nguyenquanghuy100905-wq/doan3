@@ -2,18 +2,26 @@ const db = require('../config/db');
 
 class Contenttypes{
 	static async getAllContenttypes() {
-		const [result] = await db.query('CALL getAllContentType()');
-		return result[0];
+		const [result] = await db.query(
+			'SELECT ct.id, ct.type_id, t.name AS type_name, ct.title, ct.content, ct.image_path, ct.created_at, ct.updated_at FROM contenttypes ct INNER JOIN types t ON ct.type_id = t.id'
+		);
+		return result;
 	}
 
 	static async getContenttypesById(id) {
-		const [result] = await db.execute('CALL getContenttypesById(?)', [id]);
+		const [result] = await db.execute(
+			'SELECT ct.id, ct.type_id, t.name AS type_name, ct.title, ct.content, ct.image_path, ct.created_at, ct.updated_at FROM contenttypes ct INNER JOIN types t ON ct.type_id = t.id WHERE ct.id = ?',
+			[id]
+		);
 		return result[0];
 	}
 
 	static async getContentByIdType(id) {
-		const [result] = await db.execute('CALL getContentByIdType(?)', [id]);
-		return result[0];
+		const [result] = await db.execute(
+			'SELECT ct.id, ct.type_id, t.name AS type_name, ct.title, ct.content, ct.image_path, ct.created_at, ct.updated_at FROM contenttypes ct INNER JOIN types t ON ct.type_id = t.id WHERE ct.type_id = ?',
+			[id]
+		);
+		return result;
 	}
 	static async getImgContentById(id) {
 		const [result] = await db.execute('SELECT image_path FROM contenttypes WHERE id =? ', [id]);

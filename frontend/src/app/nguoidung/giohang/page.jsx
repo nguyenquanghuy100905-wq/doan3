@@ -47,13 +47,17 @@ export default function Page() {
     if (user) fetchGioHang();
   }, [user]);
 
-  const imageTemplate = (rowData) => (
-    <img
-      src={`http://localhost:3000${rowData.image[0]}`}
-      alt="Product"
-      className="w-24 h-24 rounded-lg border-gray-300 object-cover border-1"
-    />
-  );
+  const imageTemplate = (rowData) => {
+    const images = rowData.image || rowData.images || [];
+    const imgPath = (images && images.length > 0) ? images[0] : null;
+    return (
+      <img
+        src={imgPath ? `http://localhost:3000${imgPath}` : "https://placehold.co/100x100?text=No+Image"}
+        alt="Product"
+        className="w-24 h-24 rounded-lg border-gray-300 object-cover border-1"
+      />
+    );
+  };
 
   const handleQuantityChange = (e, index) => {
     const updatedCart = [...giohang];
