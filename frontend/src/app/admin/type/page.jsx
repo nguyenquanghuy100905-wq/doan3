@@ -95,7 +95,11 @@ export default function Page() {
         if (checknull(data)) return;
 
         try {
-            await axios.post("http://localhost:3000/types/createtypes", data);
+            const response = await axios.post("http://localhost:3000/types/createtypes", data);
+            const newType = {
+                ...data,
+                id: response.data.typesId
+            };
             msgs.current.show([
                 {
                     severity: 'success',
@@ -104,7 +108,7 @@ export default function Page() {
                     life: 3000
                 }
             ]);
-            setDatatypes(prev => [...prev, data]);
+            setDatatypes(prev => [...prev, newType]);
             setForm(false);
         } catch (error) {
             console.error('Lỗi:', error);

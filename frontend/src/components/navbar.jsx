@@ -123,7 +123,7 @@ export default function Navbar() {
     <header className="bg-white sticky top-0 z-10">
       <nav className="ml-6 mr-5 mx-auto  flex items-center justify-between py-4">
         <Link href="/" className="">
-          <Image src={logo} alt="Logo" width={180} />
+          <Image src={logo} alt="Logo" width={180} priority />
         </Link>
         <div className="hidden md:flex items-center space-x-10">
           <Link

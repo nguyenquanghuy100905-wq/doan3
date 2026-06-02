@@ -9,7 +9,10 @@ class Imageproducts {
   }
 
   static getImageproductsById(id) {
-    return db.execute("CALL getImageProductsById(?)", [id]).then(([result]) => result[0]);
+    return db.execute(
+      "SELECT pr.name, pr.color, JSON_ARRAYAGG(img.image_path) AS images FROM imageproducts img INNER JOIN products pr ON img.product_id = pr.id WHERE pr.id = ? GROUP BY pr.id",
+      [id]
+    ).then(([result]) => result);
   }
 
   static getImageById(id) {

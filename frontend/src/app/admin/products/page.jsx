@@ -158,14 +158,19 @@ export default function Page() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      Object.keys(product).forEach((key) => {
-        if (key !== "image") {
+      // Chỉ gửi các trường cần thiết, loại bỏ các trường phụ từ DB
+      const allowedFields = ['category_id', 'type_id', 'name', 'newprice', 'oldprice', 'material', 'size', 'weight', 'color', 'quantity'];
+      allowedFields.forEach((key) => {
+        if (product[key] !== undefined) {
           formData.append(key, product[key]);
         }
       });
+      // Chỉ gửi các File objects thực sự, không gửi các URL string
       if (Array.isArray(product.image)) {
         product.image.forEach((file) => {
-          formData.append("files", file);
+          if (file instanceof File) {
+            formData.append("files", file);
+          }
         });
       } else if (product.image instanceof File) {
         formData.append("files", product.image);
@@ -524,16 +529,18 @@ export default function Page() {
               />
             </div>
             <div className="col-span-2 flex items-center space-x-4">
-              <FileUpload
-                ref={fileUploadRef}
-                mode="basic"
-                name="image"
-                accept="image/*"
-                maxFileSize={1000000}
-                customUpload
-                onSelect={handleFileUpload}
-                multiple
-              />
+              {(editProduct || addProduct) && (
+                <FileUpload
+                  ref={fileUploadRef}
+                  mode="basic"
+                  name="image"
+                  accept="image/*"
+                  maxFileSize={1000000}
+                  customUpload
+                  onSelect={handleFileUpload}
+                  multiple
+                />
+              )}
               {selectedFiles.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-4">
                   {selectedFiles.map((file, index) => {
@@ -548,13 +555,15 @@ export default function Page() {
                           alt={`preview-${index}`}
                           className="w-full h-full object-cover border rounded-md shadow-md"
                         />
-                        <button
-                          type="button"
-                          className="absolute top-0 right-0 cursor-pointer bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm"
-                          onClick={() => handleDeleteImage(index)}
-                        >
-                          ✕
-                        </button>
+                        {(editProduct || addProduct) && (
+                          <button
+                            type="button"
+                            className="absolute top-0 right-0 cursor-pointer bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm"
+                            onClick={() => handleDeleteImage(index)}
+                          >
+                            ✕
+                          </button>
+                        )}
                       </div>
                     );
                   })}

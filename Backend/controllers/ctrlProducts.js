@@ -95,18 +95,30 @@ exports.updateProducts = async (req, res) => {
     if (req.files && req.files.length > 0) {
       // 1. Lấy danh sách ảnh hiện tại từ DB
       const data = await Image.getImageproductsById(id);
-      const images = data.flatMap((item) => item.images);
-
-      // 2. Xóa file ảnh vật lý
-      if (images.length > 0) {
-        const deletePromises = images.map(async (item) => {
-          await Image.deleteFile(item);
+      if (data && data.length > 0) {
+        const images = data.flatMap((item) => {
+          // JSON_ARRAYAGG có thể trả về string hoặc array
+          if (typeof item.images === 'string') {
+            try {
+              return JSON.parse(item.images);
+            } catch (e) {
+              return [item.images];
+            }
+          }
+          return Array.isArray(item.images) ? item.images : [];
         });
-        await Promise.all(deletePromises);
-      }
 
-      // 3. Xóa bản ghi ảnh cũ trong DB
-      await Image.deleteImageproducts(id);
+        // 2. Xóa file ảnh vật lý
+        if (images.length > 0) {
+          const deletePromises = images.map(async (item) => {
+            await Image.deleteFile(item);
+          });
+          await Promise.all(deletePromises);
+        }
+
+        // 3. Xóa bản ghi ảnh cũ trong DB
+        await Image.deleteImageproducts(id);
+      }
 
       // 4. Lưu ảnh mới
       const imagePromises = req.files.map(async (file) => {
@@ -131,18 +143,43 @@ exports.updateProducts = async (req, res) => {
 exports.deleteProducts = async (req, res) => {
   try {
 		const { id } = req.query;
+
+		// Lấy danh sách ảnh hiện tại từ DB
 		const data = await Image.getImageproductsById(id);
-		const images = data.flatMap(item => item.images);
-		if (images.length > 0) {
-			const deletePromises = images.map(async (item) => {
-				Image.deleteFile(item);
+		if (data && data.length > 0) {
+			const images = data.flatMap(item => {
+				// JSON_ARRAYAGG có thể trả về string hoặc array
+				if (typeof item.images === 'string') {
+					try {
+						return JSON.parse(item.images);
+					} catch (e) {
+						return [item.images];
+					}
+				}
+				return Array.isArray(item.images) ? item.images : [];
 			});
-			await Promise.all(deletePromises);
+			if (images.length > 0) {
+				const deletePromises = images.map(async (item) => {
+					await Image.deleteFile(item);
+				});
+				await Promise.all(deletePromises);
+			}
 		}
+
+		// Xóa bản ghi ảnh trong DB
 		await Image.deleteImageproducts(id);
+
+		// Xóa các bản ghi liên quan trước khi xóa sản phẩm (foreign key constraints)
+		const db = require("../config/db");
+		await db.execute("DELETE FROM feedbacks WHERE product_id = ?", [id]);
+		await db.execute("DELETE FROM cartdetails WHERE product_id = ?", [id]);
+		await db.execute("DELETE FROM orderdetails WHERE product_id = ?", [id]);
+		await db.execute("DELETE FROM importinvoicedetails WHERE product_id = ?", [id]);
+
 		const deletedProducts = await Products.deleteProducts(id);
-		res.status(200).send({ message: 'Xóa Products  thành công', deletedProducts });
+		res.status(200).send({ message: 'Xóa Products thành công', deletedProducts });
 	} catch (error) {
+		console.error("Lỗi xóa sản phẩm:", error);
 		res.status(500).send({ message: 'Lỗi server', error: error.message });
 	};
 };

@@ -63,7 +63,7 @@ export default function Sidebar() {
             >
 
                 <div className={`flex justify-center py-4 transition-all ${isCollapsed ? "hidden" : "block"}`}>
-                    <Image src={logo} alt="logo" className="w-32 h-auto" />
+                    <Image src={logo} alt="logo" className="w-32 h-auto" priority />
                 </div>
 
                 <div className="w-full flex flex-col items-center flex-grow">
