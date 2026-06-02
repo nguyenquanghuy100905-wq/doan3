@@ -1,25 +1,51 @@
 const db = require('../config/db');
 
+function processOrderItems(items) {
+	if (!items) return [];
+	items.forEach(item => {
+		let imgArr = [];
+		if (item.image) {
+			if (Array.isArray(item.image)) {
+				imgArr = item.image;
+			} else if (typeof item.image === 'string') {
+				try {
+					imgArr = JSON.parse(item.image);
+				} catch (e) {
+					imgArr = item.image.split(',');
+				}
+			}
+		} else if (item.images) {
+			if (Array.isArray(item.images)) {
+				imgArr = item.images;
+			} else if (typeof item.images === 'string') {
+				try {
+					imgArr = JSON.parse(item.images);
+				} catch (e) {
+					imgArr = item.images.split(',');
+				}
+			}
+		}
+		// Filter out null or undefined values from JSON_ARRAYAGG
+		imgArr = (imgArr || []).filter(img => img !== null && img !== undefined);
+		item.image = imgArr;
+		item.images = imgArr;
+	});
+	return items;
+}
+
 class Orders {
 	static async getAllOrders() {
 		const [result] = await db.query('call getAllOrders()');
-		result[0].forEach(item => {
-			if (item.images) {
-				item.images = item.images.split(",");
-			} else {
-				item.images = [];
-			}
-		});
-		return result[0];
+		return processOrderItems(result[0]);
 	}
 
 	static async getOrdersById(id) {
 		const [result] = await db.execute('call getOrdersById(?)', [id]);
-		return result[0];
+		return processOrderItems(result[0]);
 	}
 	static async getOrdersByIdUser(id) {
 		const [result] = await db.execute('call getOrdersByIdUser(?)', [id]);
-		return result[0];
+		return processOrderItems(result[0]);
 	}
 	static async createOrders(user_id, payment_method_id, promotion_id, status, note, address, total) {
 		const [result] = await db.execute('INSERT INTO orders (user_id, payment_method_id, promotion_id, status, note,address,total) VALUES (?, ?, ?, ?,?, ?, ?)', [user_id, payment_method_id, promotion_id, status, note, address, total]);

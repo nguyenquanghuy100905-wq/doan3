@@ -285,7 +285,15 @@ export default function OrderPage() {
                             </FloatLabel>
                         </div>
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 mx-auto gap-4 col-span-2">
-                            <Image id="IMG" src={`http://localhost:3000${order.image[0]}`} alt="Image" width="full" preview />
+                            <Image 
+                                id="IMG" 
+                                src={order.image && order.image.length > 0 && order.image[0] 
+                                    ? `http://localhost:3000${order.image[0]}` 
+                                    : "https://placehold.co/100x100?text=No+Image"} 
+                                alt="Image" 
+                                width="full" 
+                                preview 
+                            />
                             <FloatLabel>
                                 <InputTextarea
                                     id="address"

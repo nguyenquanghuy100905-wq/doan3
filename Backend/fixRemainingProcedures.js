@@ -89,13 +89,24 @@ async function fixRemainingProcedures() {
         await connection.query(`
             CREATE PROCEDURE getAllOrders()
             BEGIN
-                SELECT o.*, 
-                    u.name AS user_name,
-                    pm.name AS payment_method_name
-                FROM orders o
-                LEFT JOIN users u ON o.user_id = u.id
-                LEFT JOIN paymentmethods pm ON o.payment_method_id = pm.id
-                ORDER BY o.created_at DESC;
+                SELECT 
+                    od.*, 
+                    us.name,
+                    pm.name AS payment_method_name,
+                    pr.name AS nameProduct, 
+                    pr.color, 
+                    pr.newprice, 
+                    oddt.quantity, 
+                    oddt.subtotal, 
+                    JSON_ARRAYAGG(img.image_path) AS image
+                FROM orders od
+                INNER JOIN orderdetails oddt ON oddt.order_id = od.id
+                INNER JOIN products pr ON pr.id = oddt.product_id
+                INNER JOIN users us ON us.id = od.user_id
+                LEFT JOIN paymentmethods pm ON od.payment_method_id = pm.id
+                LEFT JOIN imageproducts img ON img.product_id = oddt.product_id  
+                GROUP BY od.id, pr.id, oddt.id
+                ORDER BY od.created_at DESC;
             END
         `);
         console.log('✅ getAllOrders\n');
@@ -106,17 +117,57 @@ async function fixRemainingProcedures() {
         await connection.query(`
             CREATE PROCEDURE getOrdersByIdUser(IN userId INT)
             BEGIN
-                SELECT o.*, 
-                    u.name AS user_name,
-                    pm.name AS payment_method_name
-                FROM orders o
-                LEFT JOIN users u ON o.user_id = u.id
-                LEFT JOIN paymentmethods pm ON o.payment_method_id = pm.id
-                WHERE o.user_id = userId
-                ORDER BY o.created_at DESC;
+                SELECT 
+                    od.*, 
+                    us.name,
+                    pm.name AS payment_method_name,
+                    pr.name AS nameProduct, 
+                    pr.color, 
+                    pr.newprice, 
+                    oddt.quantity, 
+                    oddt.subtotal, 
+                    JSON_ARRAYAGG(img.image_path) AS image
+                FROM orders od
+                INNER JOIN orderdetails oddt ON oddt.order_id = od.id
+                INNER JOIN products pr ON pr.id = oddt.product_id
+                INNER JOIN users us ON us.id = od.user_id
+                LEFT JOIN paymentmethods pm ON od.payment_method_id = pm.id
+                LEFT JOIN imageproducts img ON img.product_id = oddt.product_id  
+                WHERE od.user_id = userId
+                GROUP BY od.id, pr.id, oddt.id
+                ORDER BY od.created_at DESC;
             END
         `);
         console.log('✅ getOrdersByIdUser\n');
+
+        // 7.5. getOrdersById
+        console.log('Tạo getOrdersById...');
+        await connection.query('DROP PROCEDURE IF EXISTS getOrdersById');
+        await connection.query(`
+            CREATE PROCEDURE getOrdersById(IN orderId INT)
+            BEGIN
+                SELECT 
+                    od.*, 
+                    us.name,
+                    pm.name AS payment_method_name,
+                    pr.id as idProduct,
+                    pr.name AS nameProduct, 
+                    pr.color, 
+                    pr.newprice, 
+                    oddt.quantity, 
+                    oddt.subtotal, 
+                    JSON_ARRAYAGG(img.image_path) AS image
+                FROM orders od
+                INNER JOIN orderdetails oddt ON oddt.order_id = od.id
+                INNER JOIN products pr ON pr.id = oddt.product_id
+                INNER JOIN users us ON us.id = od.user_id
+                LEFT JOIN paymentmethods pm ON od.payment_method_id = pm.id
+                LEFT JOIN imageproducts img ON img.product_id = oddt.product_id  
+                WHERE od.id = orderId
+                GROUP BY od.id, pr.id, oddt.id;
+            END
+        `);
+        console.log('✅ getOrdersById\n');
 
         // 8. getAllPaymentMethods
         console.log('Tạo getAllPaymentMethods...');
