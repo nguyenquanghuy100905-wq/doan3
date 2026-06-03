@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
+import Link from 'next/link';
 import axios from 'axios';
 import { Chart } from 'primereact/chart';
 import { Card } from 'primereact/card';
@@ -139,37 +139,6 @@ export default function page() {
         fetchOrdersByMonth();
     }, []);
 
-    const items = [{ label: 'Dashboard' }, { label: 'Home' }];
-    const home = { icon: 'pi pi-home', url: '/' };
-    
-    const barOptions = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#495057'
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: '#495057'
-                },
-                grid: {
-                    color: '#ebedef'
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#495057'
-                },
-                grid: {
-                    color: '#ebedef'
-                }
-            }
-        }
-    };
-
     const formatCurrency = (value) => {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(parseFloat(value) || 0);
     };
@@ -178,7 +147,14 @@ export default function page() {
         <div className="w-full">
             <div className="flex justify-between items-center mt-4">
                 <h2 className="text-2xl font-bold text-black">Dashboard</h2>
-                <BreadCrumb model={items} home={home} />
+                <nav className="flex items-center text-sm text-gray-600">
+                    <Link href="/nguoidung/trangchu" className="flex items-center hover:text-orange-600 transition-colors">
+                        <i className="pi pi-home mr-2"></i>
+                        Home
+                    </Link>
+                    <span className="mx-2">/</span>
+                    <span className="text-gray-900 font-medium">Dashboard</span>
+                </nav>
             </div>
 
             {/* Thống kê tổng quan */}
@@ -227,7 +203,33 @@ export default function page() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
                 <div className="col-span-1 border border-gray-300 rounded-xl bg-white shadow p-4">
                     <h3 className="text-lg font-semibold mb-3 text-black">Thống kê đơn hàng</h3>
-                    <Chart type="bar" data={barData} options={barOptions} />
+                    <Chart type="bar" data={barData} options={{
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#495057'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#495057'
+                                },
+                                grid: {
+                                    color: '#ebedef'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#495057'
+                                },
+                                grid: {
+                                    color: '#ebedef'
+                                }
+                            }
+                        }
+                    }} />
                 </div>
                 <div className="col-span-1 border border-gray-300 rounded-xl bg-white shadow p-4">
                     <h3 className="text-lg font-semibold mb-3 text-black">Thống kê sản phẩm theo loại</h3>
