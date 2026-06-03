@@ -37,12 +37,18 @@ export default function Navbar() {
   }
   const [data, setUser] = useState(null);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("data"));
-    if (user) {
-      if (user.user.role_user == 1) {
-        setUser(user);
+    const loadUser = () => {
+      const user = JSON.parse(localStorage.getItem("data"));
+      if (user) {
+        if (user.user.role_user == 1) {
+          setUser(user);
+        }
       }
-    }
+    };
+    loadUser();
+    // Re-read when the profile page dispatches this event after saving
+    window.addEventListener("userUpdated", loadUser);
+    return () => window.removeEventListener("userUpdated", loadUser);
   }, []);
 
   useEffect(() => {

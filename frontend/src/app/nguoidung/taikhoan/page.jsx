@@ -68,6 +68,18 @@ export default function AccountPage() {
                 if (data.image) {
                     setPreviewImage(`http://localhost:3000${data.image}`);
                 }
+                // Sync updated user info back to localStorage so the navbar
+                // header reflects the new avatar and name immediately.
+                try {
+                    const stored = localStorage.getItem("data");
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        parsed.user = { ...parsed.user, ...data };
+                        localStorage.setItem("data", JSON.stringify(parsed));
+                        // Notify the navbar to re-render with the new user info
+                        window.dispatchEvent(new Event("userUpdated"));
+                    }
+                } catch (_) {}
             }
         } catch (err) {
             console.error("Không tải được thông tin người dùng:", err);
