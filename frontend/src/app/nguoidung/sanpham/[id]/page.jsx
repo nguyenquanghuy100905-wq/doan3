@@ -484,7 +484,7 @@ export default function Page() {
                 {doitien(product.newprice)}
               </p>
             </div>
-            <p className="text-gray-600 text-[18px] italic font-normal leading-[26px] mt-4">
+            <p className="text-black text-[18px] italic font-normal leading-[26px] mt-4">
               Đơn giá chưa bao gồm thuế GTGT, Phí vận chuyển
             </p>
             <ul className="mt-4 space-y-1">
@@ -562,7 +562,7 @@ export default function Page() {
         <div className="flex">
           <div className="border-l border-gray-300 border-r">
             <div className="border-t-2 border-red-500 px-5 py-3 bg-white">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-2xl font-bold text-black">
                 Thông tin chi tiết
               </h2>
             </div>
@@ -589,7 +589,7 @@ export default function Page() {
               </div>
             ))
           ) : (
-            <p className="text-gray-700">Chưa có thông tin chi tiết.</p>
+            <p className="text-black">Chưa có thông tin chi tiết.</p>
           )}
         </div>
       </div>
@@ -598,7 +598,7 @@ export default function Page() {
         <div className="flex">
           <div className="border-l border-gray-300 border-r">
             <div className="border-t-2 border-red-500 px-5 py-3 bg-white">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-2xl font-bold text-black">
                 Đánh giá sản phẩm
               </h2>
             </div>
@@ -618,7 +618,7 @@ export default function Page() {
                   cancel={false}
                   className="text-yellow-500"
                 />
-                <div className="text-sm text-gray-500 mt-1">
+                <div className="text-sm text-black mt-1">
                   {totalFeedbacks} đánh giá và nhận xét
                 </div>
               </div>
@@ -632,7 +632,7 @@ export default function Page() {
                       <div className="flex-1">
                         <Rating value={star} readOnly cancel={false} />
                       </div>
-                      <div className="w-[80px] text-sm text-gray-700 text-right">
+                      <div className="w-[80px] text-sm text-black text-right">
                         {quantity} đánh giá
                       </div>
                     </div>
@@ -795,7 +795,7 @@ export default function Page() {
               </div>
             ))
           ) : (
-            <div className="text-gray-700">Chưa có đánh giá nào.</div>
+            <div className="text-black">Chưa có đánh giá nào.</div>
           )}
         </div>
       </div>
@@ -812,7 +812,7 @@ export default function Page() {
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4 text-center">
-                  <p className="text-gray-600">{product.nameCategory}</p>
+                  <p className="text-black">{product.nameCategory}</p>
                   {product.newprice < product.oldprice && (
                     <p className="text-green-600 font-semibold mt-2">
                       Khuyến mãi

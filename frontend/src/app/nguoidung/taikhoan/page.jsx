@@ -221,8 +221,8 @@ export default function AccountPage() {
         return (
             <div className="max-w-md mx-auto my-12 text-center p-8 bg-white rounded-xl shadow-lg border border-gray-200">
                 <Shield className="w-16 h-16 text-orange-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Truy cập bị hạn chế</h3>
-                <p className="text-gray-600 mb-6">Vui lòng đăng nhập để truy cập và quản lý thông tin tài khoản cá nhân của bạn.</p>
+                <h3 className="text-2xl font-bold text-black mb-2">Truy cập bị hạn chế</h3>
+                <p className="text-black mb-6">Vui lòng đăng nhập để truy cập và quản lý thông tin tài khoản cá nhân của bạn.</p>
                 <Button 
                     label="Đăng nhập ngay" 
                     className="p-button-warning bg-orange-500 text-white font-bold py-2.5 px-6 rounded-lg shadow-md hover:bg-orange-600 transition w-full"
@@ -271,19 +271,19 @@ export default function AccountPage() {
                     </div>
 
                     <div className="ml-0 md:ml-36 pt-12 md:pt-0 mb-8">
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{user.name || "Khách Hàng"}</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-black">{user.name || "Khách Hàng"}</h2>
                         <p className="text-orange-500 font-medium">{user.role_user === 2 ? "Quản trị viên" : "Thành viên thân thiết"}</p>
                     </div>
 
                     <form onSubmit={handleUpdate} className="space-y-8">
                         {/* Section: Thông tin cá nhân */}
                         <div className="space-y-4">
-                            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 flex items-center gap-2">
+                            <h3 className="text-lg font-semibold text-black border-b pb-2 flex items-center gap-2">
                                 <User className="w-5 h-5 text-orange-500" /> Thông tin cá nhân
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Tên đăng nhập</label>
+                                    <label className="text-sm font-medium text-black">Tên đăng nhập</label>
                                     <div className="relative">
                                         <Shield className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
@@ -296,68 +296,68 @@ export default function AccountPage() {
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Họ và tên *</label>
+                                    <label className="text-sm font-medium text-black">Họ và tên *</label>
                                     <div className="relative">
                                         <User className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="text"
                                             value={user.name} 
                                             onChange={(e) => setUser({ ...user, name: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                             placeholder="Nhập họ và tên..."
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Số điện thoại *</label>
+                                    <label className="text-sm font-medium text-black">Số điện thoại *</label>
                                     <div className="relative">
                                         <Phone className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="text"
                                             value={user.phone} 
                                             onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                             placeholder="Nhập số điện thoại..."
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Email *</label>
+                                    <label className="text-sm font-medium text-black">Email *</label>
                                     <div className="relative">
                                         <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="email"
                                             value={user.email} 
                                             onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                             placeholder="Nhập địa chỉ email..."
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Ngày sinh</label>
+                                    <label className="text-sm font-medium text-black">Ngày sinh</label>
                                     <div className="relative">
                                         <Calendar className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="date"
                                             value={user.birthday || ""}
                                             onChange={(e) => setUser({ ...user, birthday: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Giới tính</label>
+                                    <label className="text-sm font-medium text-black">Giới tính</label>
                                     <div className="relative">
                                         <Heart className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <select
                                             value={user.sex || ""}
                                             onChange={(e) => setUser({ ...user, sex: e.target.value })}
-                                            className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700 appearance-none cursor-pointer"
+                                            className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black appearance-none cursor-pointer"
                                         >
                                             <option value="" disabled>Chọn giới tính</option>
                                             <option value="Nam">Nam</option>
@@ -376,16 +376,16 @@ export default function AccountPage() {
 
                         {/* Section: Địa chỉ */}
                         <div className="space-y-4">
-                            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 flex items-center gap-2">
+                            <h3 className="text-lg font-semibold text-black border-b pb-2 flex items-center gap-2">
                                 <MapPin className="w-5 h-5 text-orange-500" /> Địa chỉ giao hàng
                             </h3>
                             <div className="flex flex-col space-y-1">
-                                <label className="text-sm font-medium text-gray-600">Địa chỉ cụ thể *</label>
+                                <label className="text-sm font-medium text-black">Địa chỉ cụ thể *</label>
                                 <textarea 
                                     value={user.address} 
                                     onChange={(e) => setUser({ ...user, address: e.target.value })}
                                     rows={3} 
-                                    className="w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none p-3 transition-all duration-200 text-gray-700"
+                                    className="w-full border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none p-3 transition-all duration-200 text-black"
                                     placeholder="Nhập địa chỉ giao hàng chi tiết..."
                                 />
                             </div>
@@ -393,33 +393,33 @@ export default function AccountPage() {
 
                         {/* Section: Đổi mật khẩu */}
                         <div className="space-y-4">
-                            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 flex items-center gap-2">
+                            <h3 className="text-lg font-semibold text-black border-b pb-2 flex items-center gap-2">
                                 <Lock className="w-5 h-5 text-orange-500" /> Thay đổi mật khẩu
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Mật khẩu mới (để trống nếu không muốn đổi)</label>
+                                    <label className="text-sm font-medium text-black">Mật khẩu mới (để trống nếu không muốn đổi)</label>
                                     <div className="relative">
                                         <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="password"
                                             value={password} 
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                             placeholder="Nhập mật khẩu mới..."
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col space-y-1">
-                                    <label className="text-sm font-medium text-gray-600">Xác nhận mật khẩu mới</label>
+                                    <label className="text-sm font-medium text-black">Xác nhận mật khẩu mới</label>
                                     <div className="relative">
                                         <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                                         <input 
                                             type="password"
                                             value={confirmPassword} 
                                             onChange={(e) => setConfirmPassword(e.target.value)}
-                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-gray-700"
+                                            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:outline-none transition-all duration-200 text-black"
                                             placeholder="Nhập lại mật khẩu mới..."
                                         />
                                     </div>

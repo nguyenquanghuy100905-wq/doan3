@@ -168,7 +168,7 @@ export default function Page() {
                         className="w-full h-[350px] object-cover"
                       />
                       <div className="p-4 text-center">
-                        <p className="text-gray-500 text-sm font-medium">{product.nameCategory}</p>
+                        <p className="text-black text-sm font-medium">{product.nameCategory}</p>
                         <p className="text-green-600 font-bold mt-2 text-sm">
                           Khuyến mãi
                         </p>
