@@ -102,18 +102,18 @@ export default function lienhe() {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-auto relative max-w-[540px]  sm:max-w-[720px] md:max-w-[960px] lg:max-w-[1140px] xl:max-w-[1320px] mx-auto px-4 pb-10 flex justify-center">
-                <div className="grid w-full grid-cols-2 space-x-5">
-                    <div className="shadow-lg shadow-gray-600 h-[700px] border-2 border-white rounded-lg overflow-hidden">
+            <div className="w-full h-auto relative max-w-[540px] sm:max-w-[720px] md:max-w-[960px] lg:max-w-[1140px] xl:max-w-[1320px] mx-auto px-4 pb-10 flex justify-center">
+                <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="shadow-lg shadow-gray-600 h-[450px] md:h-[700px] border-2 border-white rounded-lg overflow-hidden">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d286127.6826565675!2d105.88981459067634!3d20.706155008878095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313595dc0a211a01%3A0x98e07e982f7ad098!2zeGUgxJHhuqFwIMSRaeG7h24gSG9hbiBIb2E!5e1!3m2!1svi!2s!4v1742319031798!5m2!1svi!2s"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d286127.6826565675!2d105.88981459067634!3d20.706155008878095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313595dc0a211a01%3A0x98e07e982f7ad098!2zexeBIMSRaeG7h24gSG9hbiBIb2E!5e1!3m2!1svi!2s!4v1742319031798!5m2!1svi!2s"
                             className="w-full h-full border-0"
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
                     </div>
-                    <div className="rounded-xl absolute left-[45%] top-[5%] h-[630px] w-[650px] shadow-2xl shadow-gray-600 bg-white border-2 border-white">
+                    <div className="rounded-xl h-fit md:h-[700px] shadow-2xl shadow-gray-600 bg-white border-2 border-white">
                         <form onSubmit={handleSubmit} className="mx-auto w-full h-full p-6 rounded-lg shadow-md">
                             <div className="mb-6">
                                 <InputText id="name" value={formData.name} onChange={handleChange} placeholder="Doãn Quốc H" className="w-full p-inputtext-sm" required />
