@@ -120,6 +120,15 @@ export default function Page() {
                     </span>
 
                     <Button label="Đăng ký" icon="pi pi-user-plus" type="submit" className="w-full" />
+                    
+                    <div className="text-center mt-4">
+                        <p className="text-gray-600">
+                            Đã có tài khoản?{' '}
+                            <a href="/loginFolder/login" className="text-orange-600 hover:text-orange-700 font-semibold">
+                                Đăng nhập ngay
+                            </a>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
