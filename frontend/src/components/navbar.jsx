@@ -555,7 +555,7 @@ export default function Navbar() {
                     <li className="flex items-center p-3 hover:bg-gray-100 cursor-pointer">
                       <img
                         src={
-                          pr.image[0]
+                          pr.image && pr.image.length > 0 && pr.image[0]
                             ? `http://localhost:3000${pr.image[0]}`
                             : imgDefault.src
                         }
