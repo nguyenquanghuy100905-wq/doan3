@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import imgDefault from "@/ImageJeepBicycle/default.jpeg";
 
 export default function Header() {
     const [userData, setUserData] = useState(null);
@@ -19,9 +20,13 @@ export default function Header() {
                 {userData ? (
                     <div className="flex items-center space-x-3">
                         <img
-                            src={`http://localhost:3000${userData.image}`}
+                            src={
+                                userData.image && userData.image !== "null"
+                                    ? `http://localhost:3000${userData.image}`
+                                    : imgDefault.src
+                            }
                             alt="User"
-                            className="w-10 h-10 rounded-full border border-gray-300 shadow-sm"
+                            className="w-10 h-10 rounded-full border border-gray-300 shadow-sm object-cover"
                         />
                         <span className="text-gray-700 dark:text-gray-300 font-medium">{userData.name}</span>
                     </div>
