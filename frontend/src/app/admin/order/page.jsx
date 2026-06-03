@@ -42,10 +42,12 @@ export default function OrderPage() {
     const toast = useRef(null);
 
     const statusOptions = [
+        { label: "Tất cả", value: null },
         { label: "Đang Xử Lý", value: "Đang Xử Lý" },
+        { label: "Đã giao", value: "Đã giao" },
+        { label: "Giao Hàng Thành Công", value: "Giao Hàng Thành Công" },
         { label: "Đặt Hàng Thành Công", value: "Đặt Hàng Thành Công" },
         { label: "Đang Giao Hàng", value: "Đang Giao Hàng" },
-        { label: "Giao Hàng Thành Công", value: "Giao Hàng Thành Công" },
         { label: "Yêu Cầu Hủy", value: "Yêu Cầu Hủy" },
         { label: "Đã Hủy", value: "Đã Hủy" },
     ];
@@ -85,7 +87,9 @@ export default function OrderPage() {
     }, []);
 
     const filteredOrders = orders.filter((item) => {
-        const matchesSearch = (item.nameProduct || "").toLowerCase().includes((searchQuery || "").toLowerCase());
+        const matchesSearch = 
+            (item.nameProduct || "").toLowerCase().includes((searchQuery || "").toLowerCase()) ||
+            (item.name || "").toLowerCase().includes((searchQuery || "").toLowerCase());
         const matchesStatus = !selectedStatus || item.status === selectedStatus;
         return matchesSearch && matchesStatus;
     });

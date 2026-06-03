@@ -607,21 +607,15 @@ export default function Page() {
             body={(rowData, { rowIndex }) => rowIndex + 1}
             style={{ width: "5%" }}
           />
-          <Column field="name" header="Tên Sản Phẩm" style={{ width: "15%" }} />
+          <Column field="name" header="Tên Sản Phẩm" style={{ width: "20%" }} />
           <Column
             header="Hình ảnh"
             body={imageBodyTemplate}
             style={{ width: "15%" }}
           />
-          <Column
-            field="nameCategory"
-            header="Mẫu Điện Thoại"
-            style={{ width: "10%" }}
-          />
-          <Column field="nameType" header="Loại Điện Thoại" style={{ width: "10%" }} />
-          <Column body={oldprice} header="Giá Cũ" style={{ width: "10%" }} />
-          <Column body={newprice} header="Giá Mới" style={{ width: "10%" }} />
-          <Column field="color" header="Màu Sắc" style={{ width: "8%" }} />
+          <Column body={oldprice} header="Giá Cũ" style={{ width: "12%" }} />
+          <Column body={newprice} header="Giá Mới" style={{ width: "12%" }} />
+          <Column field="color" header="Màu Sắc" style={{ width: "10%" }} />
           <Column
             header="Chi Tiết"
             body={(rowData) => (
@@ -631,7 +625,7 @@ export default function Page() {
                 onClick={() => btnViewDetails(rowData)}
               />
             )}
-            style={{ width: "5%" }}
+            style={{ width: "8%" }}
           />
           <Column
             header="Sửa"
@@ -643,7 +637,7 @@ export default function Page() {
                 onClick={() => handleEdit(rowData)}
               />
             )}
-            style={{ width: "5%" }}
+            style={{ width: "8%" }}
           />
           <Column
             header="Xóa"
@@ -655,7 +649,7 @@ export default function Page() {
                 onClick={() => btnDeleteProduct(rowData)}
               />
             )}
-            style={{ width: "5%" }}
+            style={{ width: "10%" }}
           />
         </DataTable>
       </div>
