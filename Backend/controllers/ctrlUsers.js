@@ -21,16 +21,18 @@ exports.getUsersById = async (req, res) => {
         res.status(500).send({ message: error.message });
     };
 };
-let pathIMG = '/public/images/delfault.jpeg';
 exports.createUsers = async (req, res) => {
     try {
         const { username, password, name, birthday, sex, address, email, phone, role_user, ban } = req.body;
         if (!username || !password || !name || !birthday || !sex || !address || !email || !phone || !role_user) {
             return res.status(400).json({ message: "Vui lòng cung cấp đầy đủ thông tin bắt buộc" });
         }
+        
+        let pathIMG = '/public/images/delfault.jpeg';
         if (req.file) {
             pathIMG = "/public/images/" + req.file.filename;
         }
+        
         const usersId = await Users.createUsers(username, password, name, birthday, sex, address, email, phone, pathIMG, role_user, ban);
 
         res.status(201).send({ message: "Tạo thành công", usersId });
