@@ -68,7 +68,8 @@ class Users{
     }
 	static async register(username, password, name, birthday, address,email, phone){
 		const passwordMH = await MahoaPass.maHoa(password);
-		const [result] = await db.execute('INSERT INTO users (username, password, name, birthday, address, email, phone) VALUES (?,?,?,?,?,?,?)', [username, passwordMH, name, birthday, address, email, phone]);
+		const defaultAvatar = '/public/images/default-avatar.svg';
+		const [result] = await db.execute('INSERT INTO users (username, password, name, birthday, address, email, phone, image) VALUES (?,?,?,?,?,?,?,?)', [username, passwordMH, name, birthday, address, email, phone, defaultAvatar]);
         return result.insertId;
     }
 	static async updatePassword(id, password){

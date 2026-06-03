@@ -66,13 +66,22 @@ export default function UsersPage() {
         { label: "User", value: 1 },
     ];
 
-    const imageTemplate = (rowData) => (
-        <img
-            src={`http://localhost:3000${rowData.image}`}
-            alt="User"
-            className="w-12 h-12 rounded-full object-cover border"
-        />
-    );
+    const imageTemplate = (rowData) => {
+        const avatarUrl = rowData.image 
+            ? `http://localhost:3000${rowData.image}` 
+            : "https://ui-avatars.com/api/?name=" + encodeURIComponent(rowData.name || "User") + "&background=f97316&color=fff&size=128";
+        
+        return (
+            <img
+                src={avatarUrl}
+                alt="User"
+                className="w-12 h-12 rounded-full object-cover border"
+                onError={(e) => {
+                    e.target.src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(rowData.name || "User") + "&background=f97316&color=fff&size=128";
+                }}
+            />
+        );
+    };
 
     //getToken
     useEffect(() => {
