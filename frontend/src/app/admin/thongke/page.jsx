@@ -6,6 +6,7 @@ import { Column } from 'primereact/column';
 import axios from 'axios';
 import { Chart } from 'primereact/chart';
 import { Rating } from "primereact/rating";
+import imgDefault from '@/ImageJeepBicycle/default.jpeg';
 export default function page() {
     const [feedback, setFeedback] = useState([]);
     const items = [{ label: 'Dashboard' }, { label: 'Thống Kê' }];
@@ -169,9 +170,13 @@ export default function page() {
     }, [])
     const imageTemplate = (rowData) => (
         <img
-            src={`http://localhost:3000${rowData.image_user}`}
+            src={
+                rowData.user_image
+                    ? `http://localhost:3000${rowData.user_image}`
+                    : imgDefault.src
+            }
             alt="content"
-            className="w-20 h-20 object-cover border"
+            className="w-20 h-20 object-cover border rounded-full"
         />
     );
     const star = (rowData) => (

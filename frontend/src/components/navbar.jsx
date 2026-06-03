@@ -488,15 +488,16 @@ export default function Navbar() {
       {hideSearch ? null : (
         <div
           id="search"
-          className={`search w-full min-h-screen absolute ${styleNavbar.backgroundSearch} z-20 top-0`}
+          className={`search w-full h-screen fixed ${styleNavbar.backgroundSearch} z-50 top-0 left-0`}
+          onClick={() => sethideSearch(true)}
         >
-          <div className="flex justify-end">
+          <div className="flex justify-end p-6">
             <button
-              onClick={() => sethideSearch(true)}
-              className="relative cursor-pointer m-3 border-2 border-white group hover:border-orange-600 rounded-full w-12 h-12 duration-500 overflow-hidden"
+              onClick={(e) => { e.stopPropagation(); sethideSearch(true); }}
+              className="relative cursor-pointer border-2 border-white group hover:border-orange-600 rounded-full w-12 h-12 duration-500 overflow-hidden"
               type="button"
             >
-              <p className="font-Manrope text-2xl h-full w-full flex items-center justify-center text-white  duration-500 relative z-10 group-hover:scale-0">
+              <p className="font-Manrope text-2xl h-full w-full flex items-center justify-center text-white duration-500 relative z-10 group-hover:scale-0">
                 ×
               </p>
               <span className="absolute w-full h-full bg-orange-600 rotate-45 group-hover:top-9 duration-500 top-12 left-0" />
@@ -505,7 +506,7 @@ export default function Navbar() {
               <span className="absolute w-full h-full bg-orange-600 rotate-45 group-hover:bottom-9 duration-500 bottom-12 right-0" />
             </button>
           </div>
-          <div className="w-full h-screen relative flex justify-center items-center right-0">
+          <div className="w-full h-screen relative flex justify-center items-center right-0" onClick={(e) => e.stopPropagation()}>
             <div className="absolute top-20">
               <div className="relativew-xl" id="input">
                 <input
@@ -563,7 +564,7 @@ export default function Navbar() {
                         className="w-20 h-20 rounded-full mr-3"
                       />
                       <div className="flex flex-col">
-                        <span className="font-semibold">{pr.name}</span>
+                        <span className="font-semibold text-black">{pr.name}</span>
                         <span className="text-sm text-gray-500">
                           {pr.nameCategory}
                         </span>

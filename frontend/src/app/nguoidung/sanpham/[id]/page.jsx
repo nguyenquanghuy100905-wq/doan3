@@ -7,6 +7,7 @@ import { Galleria } from "primereact/galleria";
 import axios from "axios";
 import { Toast } from "primereact/toast";
 import { getFirstImage } from "@/utils/imageHelper";
+import imgDefault from "@/ImageJeepBicycle/default.jpeg";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -225,19 +226,19 @@ export default function Page() {
   const items = [
     {
       label: "Sản Phẩm",
-      template: () => <Link href={`/nguoidung/sanpham`}>Sản Phẩm</Link>,
+      template: () => <Link href={`/nguoidung/sanpham`} className="text-black hover:underline">Sản Phẩm</Link>,
     },
     {
       label: "Chi Tiết Sản Phẩm",
       template: () => (
-        <Link href={`/nguoidung/sanpham/${id}`}>Chi Tiết Sản Phẩm</Link>
+        <Link href={`/nguoidung/sanpham/${id}`} className="text-black hover:underline">Chi Tiết Sản Phẩm</Link>
       ),
     },
     {
       label: "InputText",
       template: () => (
         <Link href={`/nguoidung/sanpham/${id}`}>
-          <span className="text-primary font-semibold">{product.name}</span>
+          <span className="text-primary font-semibold hover:underline">{product.name}</span>
         </Link>
       ),
     },
@@ -266,12 +267,12 @@ export default function Page() {
   }, [id]);
 
   const totalFeedbacks = ratingStats.reduce(
-    (total, stat) => total + stat.quantity,
+    (total, stat) => total + stat.count,
     0
   );
   const averageStar =
     totalFeedbacks > 0
-      ? ratingStats.reduce((sum, stat) => sum + stat.star * stat.quantity, 0) /
+      ? ratingStats.reduce((sum, stat) => sum + stat.star * stat.count, 0) /
       totalFeedbacks
       : 0;
 
@@ -296,12 +297,13 @@ export default function Page() {
       msgs.current?.show([
         {
           severity: "error",
-          summary: "Thoật báo",
-          detail: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng",
+          summary: "Thông báo",
+          detail: "Vui lòng đăng nhập để thêm đánh giá",
           life: 3000,
         },
       ]);
       router.push("/loginFolder/login");
+      return;
     }
     if (!feedback.star || !feedback.content) {
       msgs.current?.show([
@@ -341,19 +343,25 @@ export default function Page() {
         content: "",
       });
       setPreviewUrl(null);
-      window.location.reload();
+      setAddFeedback(false);
+      // Re-fetch feedback data and rating stats
+      const [fbRes, statsRes] = await Promise.all([
+        axios.get(`http://localhost:3000/feedbacks/getFeedbacksByIdProduct`, { params: { id } }),
+        axios.get(`http://localhost:3000/feedbacks/getCountFeedbackByIdProduct`, { params: { id } }),
+      ]);
+      setDataFeedback(fbRes.data);
+      setRatingStats(statsRes.data);
     } catch (error) {
-      console.error("Error sending feedback:", error.response.data);
+      console.error("Error sending feedback:", error);
       msgs.current?.show([
         {
           severity: "error",
           summary: "Thông báo",
-          detail: error.response.data.message,
+          detail: error.response?.data?.message || "Đã xảy ra lỗi khi gửi đánh giá.",
           life: 3000,
         },
       ]);
     }
-    console.log(img);
   };
   const doitien = (value) => {
     const number = Number(value);
@@ -416,7 +424,7 @@ export default function Page() {
     setBtnEditFeedbacks(true);
     setBtnAddFeedbacks(false);
   };
-  const btnUpdateFeedback = () => {
+  const btnUpdateFeedback = async () => {
     try {
       const formData = new FormData();
       formData.append("user_id", user.user.id);
@@ -424,13 +432,13 @@ export default function Page() {
       formData.append("star", feedback.star);
       formData.append("content", feedback.content);
       if (feedback.image_path) formData.append("file", feedback.image_path);
-      axios.put(`http://localhost:3000/feedbacks/updateFeedbacks`, formData, {
+      await axios.put(`http://localhost:3000/feedbacks/updateFeedbacks`, formData, {
         params: { id: feedback.id },
       });
       msgs.current?.show([
         {
           severity: "success",
-          summary: "thông báo",
+          summary: "Thông báo",
           detail: "Phản hồi của bạn được cập nhật thành công!",
           life: 3000,
         },
@@ -441,14 +449,21 @@ export default function Page() {
         content: "",
       });
       setPreviewUrl(null);
-      window.location.reload();
+      setAddFeedback(false);
+      // Re-fetch feedback data and rating stats
+      const [fbRes, statsRes] = await Promise.all([
+        axios.get(`http://localhost:3000/feedbacks/getFeedbacksByIdProduct`, { params: { id } }),
+        axios.get(`http://localhost:3000/feedbacks/getCountFeedbackByIdProduct`, { params: { id } }),
+      ]);
+      setDataFeedback(fbRes.data);
+      setRatingStats(statsRes.data);
     } catch (error) {
-      console.error("Error sending feedback:", error.response.data);
+      console.error("Error sending feedback:", error);
       msgs.current?.show([
         {
           severity: "error",
-          summary: "thông báo",
-          detail: error.response.data.message,
+          summary: "Thông báo",
+          detail: error.response?.data?.message || "Đã xảy ra lỗi khi cập nhật.",
           life: 3000,
         },
       ]);
@@ -460,7 +475,7 @@ export default function Page() {
       <div className="grid my-5 grid-cols-1 space-x-4 sm:grid-cols-1 mb-5 md:grid-cols-7">
         <div className="flex justify-center col-span-3 overflow-hidden">
           <Galleria
-            value={product.image?.map((img) => ({ image: img })) || []}
+            value={product.images?.map((img) => ({ image: img })) || []}
             numVisible={4}
             circular
             style={{ maxWidth: "640px" }}
@@ -473,11 +488,11 @@ export default function Page() {
         <div className=" col-span-4">
           <BreadCrumb model={items} className="mb-4" home={home} />
           <div className="mx-2">
-            <h1 className="text-[27px] leading-[35px] font-bold">
+            <h1 className="text-[27px] leading-[35px] font-bold text-black">
               {product.name}
             </h1>
             <div className="flex space-x-4">
-              <p className="text-gray-500 font-normal text-[24px] leading-[24px] mt-4 line-through opacity-70">
+              <p className="text-black font-normal text-[24px] leading-[24px] mt-4 line-through opacity-70">
                 {doitien(product.oldprice)}
               </p>
               <p className="text-black font-bold text-[24px] leading-[24px] mt-4">
@@ -576,7 +591,7 @@ export default function Page() {
                 <h3 className="text-[20px] font-[700] leading-[26px] text-black mb-4">
                   {item.title}
                 </h3>
-                <p className="text-[18px] font-[400] leading-[26px] mb-4">
+                <p className="text-[18px] font-[400] leading-[26px] mb-4 text-black">
                   {item.content }
                 </p>
                 <div className="flex justify-center mt-10">
@@ -609,7 +624,7 @@ export default function Page() {
           <div className="border-1 border-gray-300 rounded-lg p-4 bg-white">
             <div className="grid grid-cols-6 gap-4 mb-5">
               <div className="col-span-3 flex flex-col items-center justify-center">
-                <div className="text-3xl font-bold">
+                <div className="text-3xl font-bold text-black">
                   {parseFloat(averageStar.toFixed(1))}/5
                 </div>
                 <Rating
@@ -625,10 +640,10 @@ export default function Page() {
               <div className="col-span-3 space-y-2">
                 {[5, 4, 3, 2, 1].map((star) => {
                   const item = ratingStats.find((r) => r.star === star);
-                  const quantity = item ? item.quantity : 0;
+                  const quantity = item ? item.count : 0;
                   return (
                     <div key={star} className="flex items-center gap-2">
-                      <div className="w-[60px] text-sm">{star} Sao</div>
+                      <div className="w-[60px] text-sm text-black">{star} Sao</div>
                       <div className="flex-1">
                         <Rating value={star} readOnly cancel={false} />
                       </div>
@@ -652,9 +667,9 @@ export default function Page() {
 
           {addFeedback && (
             <div className="border-1 border-gray-300 rounded-lg p-4 space-y-3 bg-white mt-4">
-              <h3 className="text-xl font-semibold mb-4">Đánh giá sản phẩm</h3>
+              <h3 className="text-xl font-semibold mb-4 text-black">Đánh giá sản phẩm</h3>
               <div className="mb-4">
-                <label htmlFor="rating" className="block mb-2 font-medium">
+                <label htmlFor="rating" className="block mb-2 font-medium text-black">
                   Chọn số sao:
                 </label>
                 <Rating
@@ -664,7 +679,7 @@ export default function Page() {
                 />
               </div>
               <div className="mb-4">
-                <h4 className="text-lg font-medium mb-2">
+                <h4 className="text-lg font-medium mb-2 text-black">
                   Tải ảnh đính kèm (nếu có):
                 </h4>
                 <div className="flex items-start space-x-4">
@@ -700,7 +715,7 @@ export default function Page() {
                 </div>
               </div>
               <div className="mb-4">
-                <label htmlFor="feedback" className="block mb-2 font-medium">
+                <label htmlFor="feedback" className="block mb-2 font-medium text-black">
                   Nội dung đánh giá:
                 </label>
                 <InputTextarea
@@ -741,14 +756,18 @@ export default function Page() {
                   <div className="">
                     <div className="flex items-center space-x-4">
                       <img
-                        src={`http://localhost:3000${item.image_user}`}
-                        className="w-16 h-16 border-1 border-gray-300 rounded-full"
+                        src={
+                          item.user_image
+                            ? `http://localhost:3000${item.user_image}`
+                            : imgDefault.src
+                        }
+                        className="w-16 h-16 border-1 border-gray-300 rounded-full object-cover"
                         alt="logo"
                       />
                       <div className="space-x-4 flex items-center">
-                        <h3 className="text-lg font-semibold">
-                          {item.user_name}
-                        </h3>
+                      <h3 className="text-lg font-semibold text-black">
+                        {item.user_name}
+                      </h3>
                         <Rating
                           value={item.star}
                           readOnly
@@ -801,7 +820,7 @@ export default function Page() {
       </div>
 
       <div className="">
-        <h2 className="my-5 text-[30px] font-bold ">Sản Phẩm Cùng Loại</h2>
+        <h2 className="my-5 text-[30px] font-bold text-black">Sản Phẩm Cùng Loại</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mb-5 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <Link key={product.id} href={`/nguoidung/sanpham/${product.id}`}>
@@ -818,9 +837,9 @@ export default function Page() {
                       Khuyến mãi
                     </p>
                   )}
-                  <h2 className="text-lg font-bold mb-2">{product.name}</h2>
+                  <h2 className="text-lg font-bold mb-2 text-black">{product.name}</h2>
                   <div className="flex justify-center items-center space-x-4">
-                    <p className="text-red-400 font-medium text-lg mt-2 line-through opacity-70">
+                    <p className="text-black font-medium text-lg mt-2 line-through opacity-70">
                       {doitien(product.oldprice)}
                     </p>
                     <p className="text-red-600 font-bold text-xl mt-2">
