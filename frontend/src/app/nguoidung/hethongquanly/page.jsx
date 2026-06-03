@@ -33,18 +33,18 @@ export default function page() {
                         <h2 className="text-xl font-bold text-red-600">
                             VĂN PHÒNG ĐIỀU HÀNH KINH DOANH TOÀN QUỐC
                         </h2>
-                        <p className="my-2">
+                        <p className="my-2 text-black">
                             Tòa nhà VinaHud - 105 Nguyễn Bá Khoản - Phường Trung Hòa - Quận Cầu Giấy - T.P Hà Nội
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-4 min-h-full">
                             <div className="md:col-span-7 border-r-2 pr-4 space-y-4">
-                                <p className="text-lg flex items-center space-x-2">
+                                <p className="text-lg flex items-center space-x-2 text-black">
                                     <FontAwesomeIcon icon={faPhone} /> <span>0978320093</span>
                                 </p>
-                                <p className="flex items-center space-x-2">
+                                <p className="flex items-center space-x-2 text-black">
                                     <FontAwesomeIcon icon={faGlobe} /> <Link href="/nguoidung/trangchu">QuangHuyMobile.vn</Link>
                                 </p>
-                                <p className="flex items-center space-x-2">
+                                <p className="flex items-center space-x-2 text-black">
                                     <FontAwesomeIcon icon={faEnvelope} /> <span>quanghuymobile@gmail.com</span>
                                 </p>
                             </div>
@@ -140,19 +140,19 @@ export default function page() {
                             {[...Array(3)].map((_, index) => (
                                 <div key={index} className="border-b-2 border-gray-300 pb-6 my-5">
                                     <h2 className="text-xl font-bold text-red-600">Quang Huy Mobile</h2>
-                                    <p className="my-2">
+                                    <p className="my-2 text-black">
                                         Tòa nhà VinaHud - 105 Nguyễn Bá Khoản - Phường Trung Hòa - Quận Cầu Giấy - T.P Hà Nội
                                     </p>
 
                                     <div className="grid grid-cols-1 md:grid-cols-12 gap-x-6 h-auto items-center">
                                         <div className="md:col-span-7 border-r-2 pr-6 space-y-4">
-                                            <p className="text-lg flex items-center space-x-2">
+                                            <p className="text-lg flex items-center space-x-2 text-black">
                                                 <FontAwesomeIcon icon={faPhone} /> <span>0978320093</span>
                                             </p>
-                                            <p className="flex items-center space-x-2">
+                                            <p className="flex items-center space-x-2 text-black">
                                                 <FontAwesomeIcon icon={faGlobe} /> <Link href="/nguoidung/trangchu">QuangHuyMobile.vn</Link>
                                             </p>
-                                            <p className="flex items-center space-x-2">
+                                            <p className="flex items-center space-x-2 text-black">
                                                 <FontAwesomeIcon icon={faEnvelope} /> <span>quanghuymobile@gmail.com</span>
                                             </p>
                                         </div>

@@ -347,7 +347,7 @@ export default function HomePage() {
 
         <div className="flex justify-start items-center">
           <div className="bg-white px-15 py-18 rounded-4xl shadow-lg w-full max-w-2xl">
-            <h2 className="text-2xl font-bold mb-6 text-left">
+            <h2 className="text-2xl font-bold mb-6 text-left text-black">
               Tư Vấn Lựa Chọn điện thoại
             </h2>
             <form className="space-y-4">
@@ -409,7 +409,7 @@ export default function HomePage() {
                   alt=""
                 />
               </div>
-              <h2 className="text-lg font-bold mt-2 group-hover:text-orange-600 transition-colors duration-300">
+              <h2 className="text-lg font-bold mt-2 text-black group-hover:text-orange-600 transition-colors duration-300">
                 {item.name}
               </h2>
               <p className="text-sm text-orange-600 group-hover:text-black transition-colors duration-300">
