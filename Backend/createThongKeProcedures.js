@@ -49,7 +49,7 @@ async function createThongKeProcedures() {
                         (SELECT img.image_path FROM imageproducts img WHERE img.product_id = p.id LIMIT 1) AS product_image,
                         p.newprice AS price,
                         COALESCE(SUM(od.quantity), 0) AS total_sold,
-                        COALESCE(SUM(od.quantity * od.price), 0) AS total_revenue
+                        COALESCE(SUM(od.subtotal), 0) AS total_revenue
                     FROM products p
                     LEFT JOIN orderdetails od ON p.id = od.product_id
                     GROUP BY p.id, p.name, p.newprice
