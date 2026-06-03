@@ -23,6 +23,8 @@ var Image = require('./routes/imageproductsRoutes');
 var Banners = require('./routes/bannersRoutes');
 var login = require('./routes/loginRoutes');
 var thongke = require('./routes/thongkeRouter');
+var news = require('./routes/newsRoutes');
+var detailnews = require('./routes/detailnewsRoutes');
 
 var app = express();
 
@@ -54,6 +56,8 @@ app.use('/image',Image);
 app.use('/banners', Banners);
 app.use('/login', login);
 app.use('/thongke', thongke);
+app.use('/news', news);
+app.use('/detailnews', detailnews);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

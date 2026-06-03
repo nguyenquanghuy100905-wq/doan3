@@ -11,13 +11,18 @@ class Detailnews{
 		return result[0];
 	}
 
-	static async createDetailnews(news_id, title_news, content_news) {
-		const [result] = await db.execute('INSERT INTO detailnews (news_id, title_news, content_news) VALUES (?, ?, ?)', [ news_id, title_news, content_news ]);
+	static async getDetailnewsByNewsId(news_id) {
+		const [result] = await db.execute('SELECT * FROM detailnews WHERE news_id = ?', [news_id]);
+		return result;
+	}
+
+	static async createDetailnews(news_id, content) {
+		const [result] = await db.execute('INSERT INTO detailnews (news_id, content) VALUES (?, ?)', [ news_id, content ]);
 		return result.insertId;
 	}
 
-	static async updateDetailnews(id, news_id, title_news, content_news) {
-		const [result] = await db.execute('UPDATE detailnews SET news_id = ?, title_news = ?, content_news = ? WHERE id = ?', [news_id, title_news, content_news, id]);
+	static async updateDetailnews(id, news_id, content) {
+		const [result] = await db.execute('UPDATE detailnews SET news_id = ?, content = ? WHERE id = ?', [news_id, content, id]);
 		return result.affectedRows > 0;
 	}
 

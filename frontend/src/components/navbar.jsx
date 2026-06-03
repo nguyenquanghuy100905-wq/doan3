@@ -205,7 +205,7 @@ export default function Navbar() {
           <Link
             href="/nguoidung/tintuc"
             className={
-              pathName === "/nguoidung/tintuc"
+              pathName.startsWith("/nguoidung/tintuc")
                 ? styleNavbar.textActive
                 : styleNavbar.text
             }

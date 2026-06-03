@@ -25,11 +25,11 @@ exports.getNewsById = async (req, res) =>{
 
 exports.createNews = async (req, res) => {
 	try {
-		const { title, content, image_path } = req.body;
-		if (!title || !content || !image_path) {
+		const { title, summary, image_path } = req.body;
+		if (!title || !summary || !image_path) {
 			return res.status(400).json({ message: 'Vui lòng cung cấp đầy đủ thông tin bắt buộc' });
 		}
-		const newsId = await News.createNews(title, content, image_path );
+		const newsId = await News.createNews(title, summary, image_path );
 		res.status(201).send({ message: 'Tạo thành công', newsId });
 	} catch (error) {
 		res.status(500).send({ message: 'Lỗi server', error: error.message });
@@ -39,11 +39,11 @@ exports.createNews = async (req, res) => {
 exports.updateNews = async (req, res) => {
 	try {
 		const { id } = req.query;
-		const { title, content, image_path } = req.body;
-		if (!title ||!content ||!image_path) {
+		const { title, summary, image_path } = req.body;
+		if (!title ||!summary ||!image_path) {
 			return res.status(400).send({ message: 'Vui lòng cung cấp đầy đủ thông tin bắt buộc' });
 		}
-		const updatedNews = await News.updateNews(id, title, content, image_path );
+		const updatedNews = await News.updateNews(id, title, summary, image_path );
 		if (!updatedNews){
 			return res.status(404).send({ message: 'News not found' });
 		}
@@ -66,4 +66,3 @@ exports.deleteNews = async (req, res) => {
 		res.status(500).send({ message: 'Lỗi server', error: error.message });
 	};
 };
-

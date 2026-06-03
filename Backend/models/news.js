@@ -2,7 +2,7 @@ const db = require('../config/db');
 
 class News{
 	static async getAllNews() {
-		const [result] = await db.query('SELECT * FROM news');
+		const [result] = await db.query('SELECT * FROM news ORDER BY created_at DESC');
 		return result;
 	}
 
@@ -11,13 +11,13 @@ class News{
 		return result[0];
 	}
 
-	static async createNews(title, content, image_path) {
-		const [result] = await db.execute('INSERT INTO news (title, content, image_path) VALUES (?, ?, ?)', [ title, content, image_path ]);
+	static async createNews(title, summary, image_path) {
+		const [result] = await db.execute('INSERT INTO news (title, summary, image_path) VALUES (?, ?, ?)', [ title, summary, image_path ]);
 		return result.insertId;
 	}
 
-	static async updateNews(id, title, content, image_path) {
-		const [result] = await db.execute('UPDATE news SET title = ?, content = ?, image_path = ? WHERE id = ?', [title, content, image_path, id]);
+	static async updateNews(id, title, summary, image_path) {
+		const [result] = await db.execute('UPDATE news SET title = ?, summary = ?, image_path = ? WHERE id = ?', [title, summary, image_path, id]);
 		return result.affectedRows > 0;
 	}
 
